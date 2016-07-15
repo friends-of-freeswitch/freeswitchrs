@@ -68,8 +68,8 @@ impl std::default::Default for cJSON {
 #[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cJSON_Hooks {
-    pub malloc_fn: std::option::Option<extern "C" fn(sz: usize) -> *mut c_void>,
-    pub free_fn: std::option::Option<unsafe extern "C" fn(ptr: *mut c_void)>,
+    pub malloc_fn: Option<extern "C" fn(sz: usize) -> *mut c_void>,
+    pub free_fn: Option<unsafe extern "C" fn(ptr: *mut c_void)>,
 }
 impl std::default::Default for cJSON_Hooks {
     fn default() -> Self {
@@ -1645,7 +1645,7 @@ pub enum pgsql_handle { }
 pub enum pgsql_result { }
 pub enum core_port_allocator { }
 pub enum media_bug { }
-pub type hashtable_destructor = std::option::Option<unsafe extern "C" fn(ptr: *mut c_void)>;
+pub type hashtable_destructor = Option<unsafe extern "C" fn(ptr: *mut c_void)>;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -1672,58 +1672,57 @@ impl std::default::Default for console_callback_match {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type media_bug_exec_cb = std::option::Option<unsafe extern "C" fn(bug: *mut media_bug,
-                                                                      user_data: *mut c_void)>;
-pub type core_video_thread_callback_func =
-    std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                             frame: *mut frame,
-                                             user_data: *mut c_void)
-                                             -> status>;
-pub type cap_callback = std::option::Option<unsafe extern "C" fn(var: *const c_char,
-                                                                 val: *const c_char,
-                                                                 user_data: *mut c_void)>;
+pub type media_bug_exec_cb = Option<unsafe extern "C" fn(bug: *mut media_bug,
+                                                         user_data: *mut c_void)>;
+pub type core_video_thread_callback_func = Option<unsafe extern "C" fn(session: *mut core_session,
+                                                                       frame: *mut frame,
+                                                                       user_data: *mut c_void)
+                                                                       -> status>;
+pub type cap_callback = Option<unsafe extern "C" fn(var: *const c_char,
+                                                    val: *const c_char,
+                                                    user_data: *mut c_void)>;
 pub type console_complete_callback =
-    std::option::Option<unsafe extern "C" fn(arg1: *const c_char,
-                                             arg2: *const c_char,
-                                             matches: *mut *mut console_callback_match)
-                                             -> status>;
-pub type media_bug_callback = std::option::Option<unsafe extern "C" fn(arg1: *mut media_bug,
-                                                                       arg2: *mut c_void,
-                                                                       arg3: abc_type)
-                                                                       -> switch_bool>;
-pub type tone_detect_callback = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                         arg2: *const c_char,
-                                                                         arg3: *const c_char)
-                                                                         -> switch_bool>;
+    Option<unsafe extern "C" fn(arg1: *const c_char,
+                                arg2: *const c_char,
+                                matches: *mut *mut console_callback_match)
+                                -> status>;
+pub type media_bug_callback = Option<unsafe extern "C" fn(arg1: *mut media_bug,
+                                                          arg2: *mut c_void,
+                                                          arg3: abc_type)
+                                                          -> switch_bool>;
+pub type tone_detect_callback = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                            arg2: *const c_char,
+                                                            arg3: *const c_char)
+                                                            -> switch_bool>;
 pub enum xml_binding { }
-pub type video_function = std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                                                   user_data: *mut c_void)>;
-pub type core_codec_encode_func =
-    std::option::Option<unsafe extern "C" fn(codec: *mut codec,
-                                             other_codec: *mut codec,
-                                             decoded_data: *mut c_void,
-                                             decoded_data_len: u32,
-                                             decoded_rate: u32,
-                                             encoded_data: *mut c_void,
-                                             encoded_data_len: *mut u32,
-                                             encoded_rate: *mut u32,
-                                             flag: *mut c_uint)
-                                             -> status>;
-pub type core_codec_decode_func =
-    std::option::Option<unsafe extern "C" fn(codec: *mut codec,
-                                             other_codec: *mut codec,
-                                             encoded_data: *mut c_void,
-                                             encoded_data_len: u32,
-                                             encoded_rate: u32,
-                                             decoded_data: *mut c_void,
-                                             decoded_data_len: *mut u32,
-                                             decoded_rate: *mut u32,
-                                             flag: *mut c_uint)
-                                             -> status>;
-pub type core_codec_video_encode_func =
-    std::option::Option<unsafe extern "C" fn(codec: *mut codec, frame: *mut frame) -> status>;
-pub type core_codec_video_decode_func =
-    std::option::Option<unsafe extern "C" fn(codec: *mut codec, frame: *mut frame) -> status>;
+pub type video_function = Option<unsafe extern "C" fn(session: *mut core_session,
+                                                      user_data: *mut c_void)>;
+pub type core_codec_encode_func = Option<unsafe extern "C" fn(codec: *mut codec,
+                                                              other_codec: *mut codec,
+                                                              decoded_data: *mut c_void,
+                                                              decoded_data_len: u32,
+                                                              decoded_rate: u32,
+                                                              encoded_data: *mut c_void,
+                                                              encoded_data_len: *mut u32,
+                                                              encoded_rate: *mut u32,
+                                                              flag: *mut c_uint)
+                                                              -> status>;
+pub type core_codec_decode_func = Option<unsafe extern "C" fn(codec: *mut codec,
+                                                              other_codec: *mut codec,
+                                                              encoded_data: *mut c_void,
+                                                              encoded_data_len: u32,
+                                                              encoded_rate: u32,
+                                                              decoded_data: *mut c_void,
+                                                              decoded_data_len: *mut u32,
+                                                              decoded_rate: *mut u32,
+                                                              flag: *mut c_uint)
+                                                              -> status>;
+pub type core_codec_video_encode_func = Option<unsafe extern "C" fn(codec: *mut codec,
+                                                                    frame: *mut frame)
+                                                                    -> status>;
+pub type core_codec_video_decode_func = Option<unsafe extern "C" fn(codec: *mut codec,
+                                                                    frame: *mut frame)
+                                                                    -> status>;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
@@ -1750,75 +1749,67 @@ pub enum io_type {
     IO_READ = 0,
     IO_WRITE = 1,
 }
-pub type core_codec_control_func =
-    std::option::Option<unsafe extern "C" fn(codec: *mut codec,
-                                             cmd: codec_control_command,
-                                             ctype: codec_control_type,
-                                             cmd_data: *mut c_void,
-                                             atype: codec_control_type,
-                                             cmd_arg: *mut c_void,
-                                             rtype: *mut codec_control_type,
-                                             ret_data: *mut *mut c_void)
-                                             -> status>;
-pub type core_codec_init_func =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut codec,
-                                             arg2: codec_flag,
-                                             codec_settings: *const codec_settings)
-                                             -> status>;
-pub type core_codec_fmtp_parse_func =
-    std::option::Option<unsafe extern "C" fn(fmtp: *const c_char, codec_fmtp: *mut codec_fmtp)
-                                             -> status>;
-pub type core_codec_destroy_func = std::option::Option<unsafe extern "C" fn(arg1: *mut codec)
-                                                                            -> status>;
-pub type chat_application_function = std::option::Option<unsafe extern "C" fn(arg1: *mut event,
-                                                                              arg2: *const c_char)
-                                                                              -> status>;
-pub type application_function = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                         arg2: *const c_char)>;
-pub type core_recover_callback =
-    std::option::Option<unsafe extern "C" fn(session: *mut core_session) -> c_int>;
-pub type event_callback = std::option::Option<unsafe extern "C" fn(arg1: *mut event)>;
-pub type dialplan_hunt_function =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                             arg2: *mut c_void,
-                                             arg3: *mut caller_profile)
-                                             -> *mut caller_extension>;
-pub type hash_delete_callback = std::option::Option<unsafe extern "C" fn(key: *const c_void,
-                                                                         val: *const c_void,
-                                                                         pData: *mut c_void)
-                                                                         -> switch_bool>;
-pub type scheduler_func = std::option::Option<unsafe extern "C" fn(task: *mut scheduler_task)>;
-pub type state_handler = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
-pub type stream_handle_read_function =
-    std::option::Option<unsafe extern "C" fn(handle: *mut stream_handle, len: *mut c_int) -> *mut u8>;
-pub type stream_handle_write_function =
-    std::option::Option<unsafe extern "C" fn(handle: *mut stream_handle, fmt: *const c_char, ...)
-                                             -> status>;
-pub type stream_handle_raw_write_function =
-    std::option::Option<unsafe extern "C" fn(handle: *mut stream_handle,
-                                             data: *mut u8,
-                                             datalen: usize)
-                                             -> status>;
-pub type api_function = std::option::Option<unsafe extern "C" fn(cmd: *const c_char,
-                                                                 session: *mut core_session,
-                                                                 stream: *mut stream_handle)
+pub type core_codec_control_func = Option<unsafe extern "C" fn(codec: *mut codec,
+                                                               cmd: codec_control_command,
+                                                               ctype: codec_control_type,
+                                                               cmd_data: *mut c_void,
+                                                               atype: codec_control_type,
+                                                               cmd_arg: *mut c_void,
+                                                               rtype: *mut codec_control_type,
+                                                               ret_data: *mut *mut c_void)
+                                                               -> status>;
+pub type core_codec_init_func = Option<unsafe extern "C" fn(arg1: *mut codec,
+                                                            arg2: codec_flag,
+                                                            codec_settings: *const codec_settings)
+                                                            -> status>;
+pub type core_codec_fmtp_parse_func = Option<unsafe extern "C" fn(fmtp: *const c_char,
+                                                                  codec_fmtp: *mut codec_fmtp)
+                                                                  -> status>;
+pub type core_codec_destroy_func = Option<unsafe extern "C" fn(arg1: *mut codec) -> status>;
+pub type chat_application_function = Option<unsafe extern "C" fn(arg1: *mut event,
+                                                                 arg2: *const c_char)
                                                                  -> status>;
-pub type json_api_function = std::option::Option<unsafe extern "C" fn(json: *const cJSON,
-                                                                      session: *mut core_session,
-                                                                      json_reply: *mut *mut cJSON)
-                                                                      -> status>;
-pub type input_callback_function =
-    std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                             input: *mut c_void,
-                                             input_type: input_type,
-                                             buf: *mut c_void,
-                                             buflen: c_uint)
-                                             -> status>;
-pub type read_frame_callback_function =
-    std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                             frame: *mut frame,
-                                             user_data: *mut c_void)
-                                             -> status>;
+pub type application_function = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                            arg2: *const c_char)>;
+pub type core_recover_callback = Option<unsafe extern "C" fn(session: *mut core_session) -> c_int>;
+pub type event_callback = Option<unsafe extern "C" fn(arg1: *mut event)>;
+pub type dialplan_hunt_function = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                              arg2: *mut c_void,
+                                                              arg3: *mut caller_profile)
+                                                              -> *mut caller_extension>;
+pub type hash_delete_callback = Option<unsafe extern "C" fn(key: *const c_void,
+                                                            val: *const c_void,
+                                                            pData: *mut c_void)
+                                                            -> switch_bool>;
+pub type scheduler_func = Option<unsafe extern "C" fn(task: *mut scheduler_task)>;
+pub type state_handler = Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
+pub type stream_handle_read_function = Option<unsafe extern "C" fn(handle: *mut stream_handle,
+                                                                   len: *mut c_int)
+                                                                   -> *mut u8>;
+pub type stream_handle_write_function = Option<unsafe extern "C" fn(handle: *mut stream_handle,
+                                                                    fmt: *const c_char,
+                                                                    ...)
+                                                                    -> status>;
+pub type stream_handle_raw_write_function =
+    Option<unsafe extern "C" fn(handle: *mut stream_handle, data: *mut u8, datalen: usize) -> status>;
+pub type api_function = Option<unsafe extern "C" fn(cmd: *const c_char,
+                                                    session: *mut core_session,
+                                                    stream: *mut stream_handle)
+                                                    -> status>;
+pub type json_api_function = Option<unsafe extern "C" fn(json: *const cJSON,
+                                                         session: *mut core_session,
+                                                         json_reply: *mut *mut cJSON)
+                                                         -> status>;
+pub type input_callback_function = Option<unsafe extern "C" fn(session: *mut core_session,
+                                                               input: *mut c_void,
+                                                               input_type: input_type,
+                                                               buf: *mut c_void,
+                                                               buflen: c_uint)
+                                                               -> status>;
+pub type read_frame_callback_function = Option<unsafe extern "C" fn(session: *mut core_session,
+                                                                    frame: *mut frame,
+                                                                    user_data: *mut c_void)
+                                                                    -> status>;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
@@ -1842,8 +1833,8 @@ impl std::default::Default for ivr_dmachine_match {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type ivr_dmachine_callback =
-    std::option::Option<unsafe extern "C" fn(match_: *mut ivr_dmachine_match) -> status>;
+pub type ivr_dmachine_callback = Option<unsafe extern "C" fn(match_: *mut ivr_dmachine_match)
+                                                             -> status>;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -1875,35 +1866,33 @@ impl std::default::Default for say_args {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type say_callback = std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                                                 tosay: *mut c_char,
-                                                                 say_args: *mut say_args,
-                                                                 args: *mut input_args)
-                                                                 -> status>;
-pub type say_string_callback =
-    std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                             tosay: *mut c_char,
-                                             say_args: *mut say_args,
-                                             rstr: *mut *mut c_char)
-                                             -> status>;
+pub type say_callback = Option<unsafe extern "C" fn(session: *mut core_session,
+                                                    tosay: *mut c_char,
+                                                    say_args: *mut say_args,
+                                                    args: *mut input_args)
+                                                    -> status>;
+pub type say_string_callback = Option<unsafe extern "C" fn(session: *mut core_session,
+                                                           tosay: *mut c_char,
+                                                           say_args: *mut say_args,
+                                                           rstr: *mut *mut c_char)
+                                                           -> status>;
 pub enum say_file_handle { }
-pub type new_say_callback = std::option::Option<unsafe extern "C" fn(sh: *mut say_file_handle,
-                                                                     tosay: *mut c_char,
-                                                                     say_args: *mut say_args)
-                                                                     -> status>;
+pub type new_say_callback = Option<unsafe extern "C" fn(sh: *mut say_file_handle,
+                                                        tosay: *mut c_char,
+                                                        say_args: *mut say_args)
+                                                        -> status>;
 pub type xml_t = *mut xml;
-pub type xml_open_root_function =
-    std::option::Option<unsafe extern "C" fn(reload: u8,
-                                             err: *mut *const c_char,
-                                             user_data: *mut c_void)
-                                             -> xml_t>;
-pub type xml_search_function = std::option::Option<unsafe extern "C" fn(section: *const c_char,
-                                                                        tag_name: *const c_char,
-                                                                        key_name: *const c_char,
-                                                                        key_value: *const c_char,
-                                                                        params: *mut event,
-                                                                        user_data: *mut c_void)
-                                                                        -> xml_t>;
+pub type xml_open_root_function = Option<unsafe extern "C" fn(reload: u8,
+                                                              err: *mut *const c_char,
+                                                              user_data: *mut c_void)
+                                                              -> xml_t>;
+pub type xml_search_function = Option<unsafe extern "C" fn(section: *const c_char,
+                                                           tag_name: *const c_char,
+                                                           key_name: *const c_char,
+                                                           key_value: *const c_char,
+                                                           params: *mut event,
+                                                           user_data: *mut c_void)
+                                                           -> xml_t>;
 pub enum hashtable { }
 pub enum hashtable_iterator { }
 pub type hash = hashtable;
@@ -1911,13 +1900,11 @@ pub type inthash = hashtable;
 pub type hash_index = hashtable_iterator;
 pub enum network_list { }
 pub type module_load =
-    std::option::Option<unsafe extern "C" fn(module_interface:
-                                                   *mut *mut loadable_module_interface,
-                                               pool:
-                                                   *mut memory_pool)
-                              -> status>;
-pub type module_runtime = std::option::Option<extern "C" fn() -> status>;
-pub type module_shutdown = std::option::Option<extern "C" fn() -> status>;
+    Option<unsafe extern "C" fn(module_interface: *mut *mut loadable_module_interface,
+                                pool: *mut memory_pool)
+                                -> status>;
+pub type module_runtime = Option<extern "C" fn() -> status>;
+pub type module_shutdown = Option<extern "C" fn() -> status>;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
@@ -1950,17 +1937,16 @@ impl std::default::Default for loadable_module_function_table {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type modulename_callback_func =
-    std::option::Option<unsafe extern "C" fn(user_data: *mut c_void, module_name: *const c_char)
-                                             -> c_int>;
+pub type modulename_callback_func = Option<unsafe extern "C" fn(user_data: *mut c_void,
+                                                                module_name: *const c_char)
+                                                                -> c_int>;
 pub enum ivr_digit_stream_parser { }
 pub enum media_handle { }
 pub type event_channel_id = u32;
-pub type event_channel_func =
-    std::option::Option<unsafe extern "C" fn(event_channel: *const c_char,
-                                             json: *mut cJSON,
-                                             key: *const c_char,
-                                             id: event_channel_id)>;
+pub type event_channel_func = Option<unsafe extern "C" fn(event_channel: *const c_char,
+                                                          json: *mut cJSON,
+                                                          key: *const c_char,
+                                                          id: event_channel_id)>;
 pub enum live_array { }
 #[derive(Copy, Clone)]
 #[repr(u32)]
@@ -2155,9 +2141,8 @@ pub enum apr_thread { }
 pub type thread = apr_thread;
 pub enum apr_threadattr { }
 pub type threadattr = apr_threadattr;
-pub type thread_start = std::option::Option<unsafe extern "C" fn(arg1: *mut thread,
-                                                                 arg2: *mut c_void)
-                                                                 -> *mut c_void>;
+pub type thread_start = Option<unsafe extern "C" fn(arg1: *mut thread, arg2: *mut c_void)
+                                                    -> *mut c_void>;
 pub enum apr_socket { }
 pub type socket = apr_socket;
 pub enum sockaddr {}
@@ -2221,16 +2206,16 @@ pub enum sqlite3 { }
 pub type core_db = sqlite3;
 pub enum sqlite3_stmt { }
 pub type core_db_stmt = sqlite3_stmt;
-pub type core_db_callback_func =
-    std::option::Option<unsafe extern "C" fn(pArg: *mut c_void,
-                                             argc: c_int,
-                                             argv: *mut *mut c_char,
-                                             columnNames: *mut *mut c_char)
-                                             -> c_int>;
-pub type core_db_err_callback_func =
-    std::option::Option<unsafe extern "C" fn(pArg: *mut c_void, errmsg: *const c_char) -> c_int>;
-pub type core_db_destructor_type = std::option::Option<unsafe extern "C" fn(arg1: *mut c_void)>;
-pub type dso_func = std::option::Option<extern "C" fn() -> c_int>;
+pub type core_db_callback_func = Option<unsafe extern "C" fn(pArg: *mut c_void,
+                                                             argc: c_int,
+                                                             argv: *mut *mut c_char,
+                                                             columnNames: *mut *mut c_char)
+                                                             -> c_int>;
+pub type core_db_err_callback_func = Option<unsafe extern "C" fn(pArg: *mut c_void,
+                                                                 errmsg: *const c_char)
+                                                                 -> c_int>;
+pub type core_db_destructor_type = Option<unsafe extern "C" fn(arg1: *mut c_void)>;
+pub type dso_func = Option<extern "C" fn() -> c_int>;
 pub type dso_lib = *mut c_void;
 pub type dso_data = *mut c_void;
 pub enum real_pcre { }
@@ -2378,10 +2363,9 @@ impl std::default::Default for device_record {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type device_state_function =
-    std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                             callstate: channel_callstate,
-                                             drec: *mut device_record)>;
+pub type device_state_function = Option<unsafe extern "C" fn(session: *mut core_session,
+                                                             callstate: channel_callstate,
+                                                             drec: *mut device_record)>;
 #[repr(C)]
 #[derive(Copy)]
 pub struct dtls_fp_s {
@@ -2477,9 +2461,9 @@ pub enum hup_type {
     UNANSWERED = 1,
     ANSWERED = 2,
 }
-pub type core_db_event_callback_func = std::option::Option<unsafe extern "C" fn(pArg: *mut c_void,
-                                                                                event: *mut event)
-                                                                                -> c_int>;
+pub type core_db_event_callback_func = Option<unsafe extern "C" fn(pArg: *mut c_void,
+                                                                   event: *mut event)
+                                                                   -> c_int>;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
@@ -2605,9 +2589,8 @@ impl std::default::Default for log_node {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type log_function = std::option::Option<unsafe extern "C" fn(node: *const log_node,
-                                                                 level: log_level)
-                                                                 -> status>;
+pub type log_function = Option<unsafe extern "C" fn(node: *const log_node, level: log_level)
+                                                    -> status>;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -2686,54 +2669,47 @@ impl std::default::Default for stream_handle {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type io_outgoing_channel =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                             arg2: *mut event,
-                                             arg3: *mut caller_profile,
-                                             arg4: *mut *mut core_session,
-                                             arg5: *mut *mut memory_pool,
-                                             arg6: originate_flag,
-                                             arg7: *mut call_cause)
-                                             -> call_cause>;
-pub type io_read_frame = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                  arg2: *mut *mut frame,
-                                                                  arg3: io_flag,
-                                                                  arg4: c_int)
-                                                                  -> status>;
-pub type io_write_frame = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                   arg2: *mut frame,
-                                                                   arg3: io_flag,
-                                                                   arg4: c_int)
-                                                                   -> status>;
-pub type io_kill_channel = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                    arg2: c_int)
-                                                                    -> status>;
-pub type io_send_dtmf = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                 arg2: *const dtmf)
-                                                                 -> status>;
-pub type io_receive_message =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                             arg2: *mut core_session_message)
-                                             -> status>;
-pub type io_receive_event = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                     arg2: *mut event)
-                                                                     -> status>;
-pub type io_state_change = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session)
-                                                                    -> status>;
-pub type io_state_run = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
-pub type io_read_video_frame = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                        arg2: *mut *mut frame,
-                                                                        arg3: io_flag,
-                                                                        arg4: c_int)
-                                                                        -> status>;
-pub type io_write_video_frame = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                         arg2: *mut frame,
-                                                                         arg3: io_flag,
-                                                                         arg4: c_int)
-                                                                         -> status>;
-pub type io_get_jb = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                              arg2: media_type)
-                                                              -> *mut jb>;
+pub type io_outgoing_channel = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                           arg2: *mut event,
+                                                           arg3: *mut caller_profile,
+                                                           arg4: *mut *mut core_session,
+                                                           arg5: *mut *mut memory_pool,
+                                                           arg6: originate_flag,
+                                                           arg7: *mut call_cause)
+                                                           -> call_cause>;
+pub type io_read_frame = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                     arg2: *mut *mut frame,
+                                                     arg3: io_flag,
+                                                     arg4: c_int)
+                                                     -> status>;
+pub type io_write_frame = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                      arg2: *mut frame,
+                                                      arg3: io_flag,
+                                                      arg4: c_int)
+                                                      -> status>;
+pub type io_kill_channel = Option<unsafe extern "C" fn(arg1: *mut core_session, arg2: c_int)
+                                                       -> status>;
+pub type io_send_dtmf = Option<unsafe extern "C" fn(arg1: *mut core_session, arg2: *const dtmf)
+                                                    -> status>;
+pub type io_receive_message = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                          arg2: *mut core_session_message)
+                                                          -> status>;
+pub type io_receive_event = Option<unsafe extern "C" fn(arg1: *mut core_session, arg2: *mut event)
+                                                        -> status>;
+pub type io_state_change = Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
+pub type io_state_run = Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
+pub type io_read_video_frame = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                           arg2: *mut *mut frame,
+                                                           arg3: io_flag,
+                                                           arg4: c_int)
+                                                           -> status>;
+pub type io_write_video_frame = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                            arg2: *mut frame,
+                                                            arg3: io_flag,
+                                                            arg4: c_int)
+                                                            -> status>;
+pub type io_get_jb = Option<unsafe extern "C" fn(arg1: *mut core_session, arg2: media_type)
+                                                 -> *mut jb>;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
@@ -2829,13 +2805,12 @@ pub enum timer_func_name {
 #[derive(Debug)]
 pub struct timer_interface {
     pub interface_name: *const c_char,
-    pub timer_init: std::option::Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
-    pub timer_next: std::option::Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
-    pub timer_step: std::option::Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
-    pub timer_sync: std::option::Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
-    pub timer_check: std::option::Option<unsafe extern "C" fn(arg1: *mut timer, arg2: switch_bool)
-                                                              -> status>,
-    pub timer_destroy: std::option::Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
+    pub timer_init: Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
+    pub timer_next: Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
+    pub timer_step: Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
+    pub timer_sync: Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
+    pub timer_check: Option<unsafe extern "C" fn(arg1: *mut timer, arg2: switch_bool) -> status>,
+    pub timer_destroy: Option<unsafe extern "C" fn(arg1: *mut timer) -> status>,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
     pub reflock: *mut mutex,
@@ -2869,44 +2844,39 @@ impl std::default::Default for dialplan_interface {
 #[derive(Debug)]
 pub struct file_interface {
     pub interface_name: *const c_char,
-    pub file_open: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle,
-                                                            file_path: *const c_char)
-                                                            -> status>,
-    pub file_close: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle) -> status>,
-    pub file_truncate: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle,
-                                                                offset: i64)
-                                                                -> status>,
-    pub file_read: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle,
-                                                            data: *mut c_void,
-                                                            len: *mut usize)
-                                                            -> status>,
-    pub file_write: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle,
-                                                             data: *mut c_void,
-                                                             len: *mut usize)
-                                                             -> status>,
-    pub file_read_video: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle,
-                                                                  frame: *mut frame,
-                                                                  flags: video_read_flag)
-                                                                  -> status>,
-    pub file_write_video: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle,
-                                                                   frame: *mut frame)
-                                                                   -> status>,
-    pub file_seek: std::option::Option<unsafe extern "C" fn(arg1: *mut file_handle,
-                                                            cur_pos: *mut c_uint,
-                                                            samples: i64,
-                                                            whence: c_int)
-                                                            -> status>,
-    pub file_set_string: std::option::Option<unsafe extern "C" fn(fh: *mut file_handle,
-                                                                  col: audio_col,
-                                                                  string: *const c_char)
-                                                                  -> status>,
-    pub file_get_string: std::option::Option<unsafe extern "C" fn(fh: *mut file_handle,
-                                                                  col: audio_col,
-                                                                  string: *mut *const c_char)
-                                                                  -> status>,
-    pub file_command: std::option::Option<unsafe extern "C" fn(fh: *mut file_handle,
-                                                               command: file_command)
-                                                               -> status>,
+    pub file_open: Option<unsafe extern "C" fn(arg1: *mut file_handle, file_path: *const c_char)
+                                               -> status>,
+    pub file_close: Option<unsafe extern "C" fn(arg1: *mut file_handle) -> status>,
+    pub file_truncate: Option<unsafe extern "C" fn(arg1: *mut file_handle, offset: i64) -> status>,
+    pub file_read: Option<unsafe extern "C" fn(arg1: *mut file_handle,
+                                               data: *mut c_void,
+                                               len: *mut usize)
+                                               -> status>,
+    pub file_write: Option<unsafe extern "C" fn(arg1: *mut file_handle,
+                                                data: *mut c_void,
+                                                len: *mut usize)
+                                                -> status>,
+    pub file_read_video: Option<unsafe extern "C" fn(arg1: *mut file_handle,
+                                                     frame: *mut frame,
+                                                     flags: video_read_flag)
+                                                     -> status>,
+    pub file_write_video: Option<unsafe extern "C" fn(arg1: *mut file_handle, frame: *mut frame)
+                                                      -> status>,
+    pub file_seek: Option<unsafe extern "C" fn(arg1: *mut file_handle,
+                                               cur_pos: *mut c_uint,
+                                               samples: i64,
+                                               whence: c_int)
+                                               -> status>,
+    pub file_set_string: Option<unsafe extern "C" fn(fh: *mut file_handle,
+                                                     col: audio_col,
+                                                     string: *const c_char)
+                                                     -> status>,
+    pub file_get_string: Option<unsafe extern "C" fn(fh: *mut file_handle,
+                                                     col: audio_col,
+                                                     string: *mut *const c_char)
+                                                     -> status>,
+    pub file_command: Option<unsafe extern "C" fn(fh: *mut file_handle, command: file_command)
+                                                  -> status>,
     pub extens: *mut *mut c_char,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
@@ -3024,68 +2994,60 @@ impl std::default::Default for file_handle {
 #[derive(Debug)]
 pub struct asr_interface {
     pub interface_name: *const c_char,
-    pub asr_open: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                           codec: *const c_char,
-                                                           rate: c_int,
-                                                           dest: *const c_char,
-                                                           flags: *mut asr_flag)
-                                                           -> status>,
-    pub asr_load_grammar: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                   grammar: *const c_char,
-                                                                   name: *const c_char)
-                                                                   -> status>,
-    pub asr_unload_grammar: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                     name: *const c_char)
-                                                                     -> status>,
-    pub asr_close: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
+    pub asr_open: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                              codec: *const c_char,
+                                              rate: c_int,
+                                              dest: *const c_char,
+                                              flags: *mut asr_flag)
+                                              -> status>,
+    pub asr_load_grammar: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                                      grammar: *const c_char,
+                                                      name: *const c_char)
+                                                      -> status>,
+    pub asr_unload_grammar: Option<unsafe extern "C" fn(ah: *mut asr_handle, name: *const c_char)
+                                                        -> status>,
+    pub asr_close: Option<unsafe extern "C" fn(ah: *mut asr_handle, flags: *mut asr_flag) -> status>,
+    pub asr_feed: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                              data: *mut c_void,
+                                              len: c_uint,
+                                              flags: *mut asr_flag)
+                                              -> status>,
+    pub asr_resume: Option<unsafe extern "C" fn(ah: *mut asr_handle) -> status>,
+    pub asr_pause: Option<unsafe extern "C" fn(ah: *mut asr_handle) -> status>,
+    pub asr_check_results: Option<unsafe extern "C" fn(ah: *mut asr_handle, flags: *mut asr_flag)
+                                                       -> status>,
+    pub asr_get_results: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                                     xmlstr: *mut *mut c_char,
+                                                     flags: *mut asr_flag)
+                                                     -> status>,
+    pub asr_get_result_headers: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                                            headers: *mut *mut event,
                                                             flags: *mut asr_flag)
                                                             -> status>,
-    pub asr_feed: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                           data: *mut c_void,
-                                                           len: c_uint,
-                                                           flags: *mut asr_flag)
-                                                           -> status>,
-    pub asr_resume: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle) -> status>,
-    pub asr_pause: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle) -> status>,
-    pub asr_check_results: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                    flags: *mut asr_flag)
-                                                                    -> status>,
-    pub asr_get_results: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                  xmlstr: *mut *mut c_char,
-                                                                  flags: *mut asr_flag)
-                                                                  -> status>,
-    pub asr_get_result_headers: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                         headers: *mut *mut event,
-                                                                         flags: *mut asr_flag)
-                                                                         -> status>,
-    pub asr_start_input_timers: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle)
-                                                                         -> status>,
-    pub asr_text_param: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                 param: *mut c_char,
-                                                                 val: *const c_char)>,
-    pub asr_numeric_param: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                    param: *mut c_char,
-                                                                    val: c_int)>,
-    pub asr_float_param: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                  param: *mut c_char,
-                                                                  val: f64)>,
+    pub asr_start_input_timers: Option<unsafe extern "C" fn(ah: *mut asr_handle) -> status>,
+    pub asr_text_param: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                                    param: *mut c_char,
+                                                    val: *const c_char)>,
+    pub asr_numeric_param: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                                       param: *mut c_char,
+                                                       val: c_int)>,
+    pub asr_float_param: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                                     param: *mut c_char,
+                                                     val: f64)>,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
     pub reflock: *mut mutex,
     pub parent: *mut loadable_module_interface,
     pub next: *mut asr_interface,
-    pub asr_enable_grammar: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                     name: *const c_char)
-                                                                     -> status>,
-    pub asr_disable_grammar: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                      name: *const c_char)
-                                                                      -> status>,
-    pub asr_disable_all_grammars: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle)
-                                                                           -> status>,
-    pub asr_feed_dtmf: std::option::Option<unsafe extern "C" fn(ah: *mut asr_handle,
-                                                                dtmf: *const dtmf,
-                                                                flags: *mut asr_flag)
-                                                                -> status>,
+    pub asr_enable_grammar: Option<unsafe extern "C" fn(ah: *mut asr_handle, name: *const c_char)
+                                                        -> status>,
+    pub asr_disable_grammar: Option<unsafe extern "C" fn(ah: *mut asr_handle, name: *const c_char)
+                                                         -> status>,
+    pub asr_disable_all_grammars: Option<unsafe extern "C" fn(ah: *mut asr_handle) -> status>,
+    pub asr_feed_dtmf: Option<unsafe extern "C" fn(ah: *mut asr_handle,
+                                                   dtmf: *const dtmf,
+                                                   flags: *mut asr_flag)
+                                                   -> status>,
 }
 impl std::default::Default for asr_interface {
     fn default() -> Self {
@@ -3122,34 +3084,34 @@ impl std::default::Default for asr_handle {
 #[derive(Debug)]
 pub struct speech_interface {
     pub interface_name: *const c_char,
-    pub speech_open: std::option::Option<unsafe extern "C" fn(sh: *mut speech_handle,
-                                                              voice_name: *const c_char,
-                                                              rate: c_int,
-                                                              channels: c_int,
-                                                              flags: *mut speech_flag)
-                                                              -> status>,
-    pub speech_close: std::option::Option<unsafe extern "C" fn(arg1: *mut speech_handle,
-                                                               flags: *mut speech_flag)
-                                                               -> status>,
-    pub speech_feed_tts: std::option::Option<unsafe extern "C" fn(sh: *mut speech_handle,
-                                                                  text: *mut c_char,
-                                                                  flags: *mut speech_flag)
-                                                                  -> status>,
-    pub speech_read_tts: std::option::Option<unsafe extern "C" fn(sh: *mut speech_handle,
-                                                                  data: *mut c_void,
-                                                                  datalen: *mut usize,
-                                                                  flags: *mut speech_flag)
-                                                                  -> status>,
-    pub speech_flush_tts: std::option::Option<unsafe extern "C" fn(sh: *mut speech_handle)>,
-    pub speech_text_param_tts: std::option::Option<unsafe extern "C" fn(sh: *mut speech_handle,
-                                                                        param: *mut c_char,
-                                                                        val: *const c_char)>,
-    pub speech_numeric_param_tts: std::option::Option<unsafe extern "C" fn(sh: *mut speech_handle,
-                                                                           param: *mut c_char,
-                                                                           val: c_int)>,
-    pub speech_float_param_tts: std::option::Option<unsafe extern "C" fn(sh: *mut speech_handle,
-                                                                         param: *mut c_char,
-                                                                         val: f64)>,
+    pub speech_open: Option<unsafe extern "C" fn(sh: *mut speech_handle,
+                                                 voice_name: *const c_char,
+                                                 rate: c_int,
+                                                 channels: c_int,
+                                                 flags: *mut speech_flag)
+                                                 -> status>,
+    pub speech_close: Option<unsafe extern "C" fn(arg1: *mut speech_handle,
+                                                  flags: *mut speech_flag)
+                                                  -> status>,
+    pub speech_feed_tts: Option<unsafe extern "C" fn(sh: *mut speech_handle,
+                                                     text: *mut c_char,
+                                                     flags: *mut speech_flag)
+                                                     -> status>,
+    pub speech_read_tts: Option<unsafe extern "C" fn(sh: *mut speech_handle,
+                                                     data: *mut c_void,
+                                                     datalen: *mut usize,
+                                                     flags: *mut speech_flag)
+                                                     -> status>,
+    pub speech_flush_tts: Option<unsafe extern "C" fn(sh: *mut speech_handle)>,
+    pub speech_text_param_tts: Option<unsafe extern "C" fn(sh: *mut speech_handle,
+                                                           param: *mut c_char,
+                                                           val: *const c_char)>,
+    pub speech_numeric_param_tts: Option<unsafe extern "C" fn(sh: *mut speech_handle,
+                                                              param: *mut c_char,
+                                                              val: c_int)>,
+    pub speech_float_param_tts: Option<unsafe extern "C" fn(sh: *mut speech_handle,
+                                                            param: *mut c_char,
+                                                            val: f64)>,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
     pub reflock: *mut mutex,
@@ -3217,7 +3179,7 @@ impl std::default::Default for say_interface {
 #[derive(Debug)]
 pub struct chat_interface {
     pub interface_name: *const c_char,
-    pub chat_send: std::option::Option<unsafe extern "C" fn(message_event: *mut event) -> status>,
+    pub chat_send: Option<unsafe extern "C" fn(message_event: *mut event) -> status>,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
     pub reflock: *mut mutex,
@@ -3234,11 +3196,11 @@ impl std::default::Default for chat_interface {
 #[derive(Debug)]
 pub struct management_interface {
     pub relative_oid: *const c_char,
-    pub management_function: std::option::Option<unsafe extern "C" fn(relative_oid: *mut c_char,
-                                                                      action: management_action,
-                                                                      data: *mut c_char,
-                                                                      datalen: usize)
-                                                                      -> status>,
+    pub management_function: Option<unsafe extern "C" fn(relative_oid: *mut c_char,
+                                                         action: management_action,
+                                                         data: *mut c_char,
+                                                         datalen: usize)
+                                                         -> status>,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
     pub reflock: *mut mutex,
@@ -3255,25 +3217,24 @@ impl std::default::Default for management_interface {
 #[derive(Debug)]
 pub struct limit_interface {
     pub interface_name: *const c_char,
-    pub incr: std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                                       realm: *const c_char,
-                                                       resource: *const c_char,
-                                                       max: c_int,
-                                                       interval: c_int)
-                                                       -> status>,
-    pub release: std::option::Option<unsafe extern "C" fn(session: *mut core_session,
-                                                          realm: *const c_char,
-                                                          resource: *const c_char)
-                                                          -> status>,
-    pub usage: std::option::Option<unsafe extern "C" fn(realm: *const c_char,
-                                                        resource: *const c_char,
-                                                        rcount: *mut u32)
-                                                        -> c_int>,
-    pub reset: std::option::Option<extern "C" fn() -> status>,
-    pub status: std::option::Option<extern "C" fn() -> *mut c_char>,
-    pub interval_reset: std::option::Option<unsafe extern "C" fn(realm: *const c_char,
-                                                                 resource: *const c_char)
-                                                                 -> status>,
+    pub incr: Option<unsafe extern "C" fn(session: *mut core_session,
+                                          realm: *const c_char,
+                                          resource: *const c_char,
+                                          max: c_int,
+                                          interval: c_int)
+                                          -> status>,
+    pub release: Option<unsafe extern "C" fn(session: *mut core_session,
+                                             realm: *const c_char,
+                                             resource: *const c_char)
+                                             -> status>,
+    pub usage: Option<unsafe extern "C" fn(realm: *const c_char,
+                                           resource: *const c_char,
+                                           rcount: *mut u32)
+                                           -> c_int>,
+    pub reset: Option<extern "C" fn() -> status>,
+    pub status: Option<extern "C" fn() -> *mut c_char>,
+    pub interval_reset: Option<unsafe extern "C" fn(realm: *const c_char, resource: *const c_char)
+                                                    -> status>,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
     pub reflock: *mut mutex,
@@ -3290,23 +3251,21 @@ impl std::default::Default for limit_interface {
 #[derive(Debug)]
 pub struct directory_interface {
     pub interface_name: *const c_char,
-    pub directory_open: std::option::Option<unsafe extern "C" fn(dh: *mut directory_handle,
-                                                                 source: *mut c_char,
-                                                                 dsn: *mut c_char,
-                                                                 passwd: *mut c_char)
-                                                                 -> status>,
-    pub directory_close: std::option::Option<unsafe extern "C" fn(dh: *mut directory_handle)
-                                                                  -> status>,
-    pub directory_query: std::option::Option<unsafe extern "C" fn(dh: *mut directory_handle,
-                                                                  base: *mut c_char,
-                                                                  query: *mut c_char)
-                                                                  -> status>,
-    pub directory_next: std::option::Option<unsafe extern "C" fn(dh: *mut directory_handle)
-                                                                 -> status>,
-    pub directory_next_pair: std::option::Option<unsafe extern "C" fn(dh: *mut directory_handle,
-                                                                      var: *mut *mut c_char,
-                                                                      val: *mut *mut c_char)
-                                                                      -> status>,
+    pub directory_open: Option<unsafe extern "C" fn(dh: *mut directory_handle,
+                                                    source: *mut c_char,
+                                                    dsn: *mut c_char,
+                                                    passwd: *mut c_char)
+                                                    -> status>,
+    pub directory_close: Option<unsafe extern "C" fn(dh: *mut directory_handle) -> status>,
+    pub directory_query: Option<unsafe extern "C" fn(dh: *mut directory_handle,
+                                                     base: *mut c_char,
+                                                     query: *mut c_char)
+                                                     -> status>,
+    pub directory_next: Option<unsafe extern "C" fn(dh: *mut directory_handle) -> status>,
+    pub directory_next_pair: Option<unsafe extern "C" fn(dh: *mut directory_handle,
+                                                         var: *mut *mut c_char,
+                                                         val: *mut *mut c_char)
+                                                         -> status>,
     pub rwlock: *mut thread_rwlock,
     pub refs: c_int,
     pub reflock: *mut mutex,
@@ -3952,12 +3911,11 @@ pub enum event_flag {
     EF_NO_CHAT_EXEC = 2,
     EF_DEFAULT_ALLOW = 4,
 }
-pub type live_array_command_handler =
-    std::option::Option<unsafe extern "C" fn(la: *mut live_array,
-                                             cmd: *const c_char,
-                                             sessid: *const c_char,
-                                             jla: *mut cJSON,
-                                             user_data: *mut c_void)>;
+pub type live_array_command_handler = Option<unsafe extern "C" fn(la: *mut live_array,
+                                                                  cmd: *const c_char,
+                                                                  sessid: *const c_char,
+                                                                  jla: *mut cJSON,
+                                                                  user_data: *mut c_void)>;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
@@ -4281,11 +4239,11 @@ pub enum rtcp_psfb {
     PSLEI = 8,
     AFB = 15,
 }
-pub type rtp_invalid_handler = std::option::Option<unsafe extern "C" fn(rtp_session: *mut rtp,
-                                                                        sock: *mut socket,
-                                                                        data: *mut c_void,
-                                                                        datalen: usize,
-                                                                        from_addr: *mut sockaddr)>;
+pub type rtp_invalid_handler = Option<unsafe extern "C" fn(rtp_session: *mut rtp,
+                                                           sock: *mut socket,
+                                                           data: *mut c_void,
+                                                           datalen: usize,
+                                                           from_addr: *mut sockaddr)>;
 #[derive(Copy, Clone)]
 #[repr(u32)]
 #[derive(Debug)]
@@ -4400,12 +4358,11 @@ pub enum config_flags {
     RELOADABLE = 1,
     REQUIRED = 2,
 }
-pub type xml_config_callback =
-    std::option::Option<unsafe extern "C" fn(item: *mut xml_config_item,
-                                             newvalue: *const c_char,
-                                             callback_type: config_callback_type,
-                                             changed: switch_bool)
-                                             -> status>;
+pub type xml_config_callback = Option<unsafe extern "C" fn(item: *mut xml_config_item,
+                                                           newvalue: *const c_char,
+                                                           callback_type: config_callback_type,
+                                                           changed: switch_bool)
+                                                           -> status>;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -4425,56 +4382,50 @@ impl std::default::Default for xml_config_item {
         unsafe { std::mem::zeroed() }
     }
 }
-pub type outgoing_channel_hook =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                             arg2: *mut event,
-                                             arg3: *mut caller_profile,
-                                             arg4: *mut core_session,
-                                             arg5: originate_flag)
-                                             -> status>;
-pub type receive_message_hook =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                             arg2: *mut core_session_message)
-                                             -> status>;
-pub type receive_event_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                       arg2: *mut event)
-                                                                       -> status>;
-pub type read_frame_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                    arg2: *mut *mut frame,
-                                                                    arg3: io_flag,
-                                                                    arg4: c_int)
-                                                                    -> status>;
-pub type video_read_frame_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                          arg2: *mut *mut frame,
-                                                                          arg3: io_flag,
-                                                                          arg4: c_int)
-                                                                          -> status>;
-pub type write_frame_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                     arg2: *mut frame,
-                                                                     arg3: io_flag,
-                                                                     arg4: c_int)
-                                                                     -> status>;
-pub type video_write_frame_hook =
-    std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                             arg2: *mut frame,
-                                             arg3: io_flag,
-                                             arg4: c_int)
-                                             -> status>;
-pub type kill_channel_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                      arg2: c_int)
-                                                                      -> status>;
-pub type send_dtmf_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                   arg2: *const dtmf,
-                                                                   direction: dtmf_direction)
-                                                                   -> status>;
-pub type recv_dtmf_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session,
-                                                                   arg2: *const dtmf,
-                                                                   direction: dtmf_direction)
-                                                                   -> status>;
-pub type state_change_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session)
-                                                                      -> status>;
-pub type state_run_hook = std::option::Option<unsafe extern "C" fn(arg1: *mut core_session)
-                                                                   -> status>;
+pub type outgoing_channel_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                             arg2: *mut event,
+                                                             arg3: *mut caller_profile,
+                                                             arg4: *mut core_session,
+                                                             arg5: originate_flag)
+                                                             -> status>;
+pub type receive_message_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                            arg2: *mut core_session_message)
+                                                            -> status>;
+pub type receive_event_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                          arg2: *mut event)
+                                                          -> status>;
+pub type read_frame_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                       arg2: *mut *mut frame,
+                                                       arg3: io_flag,
+                                                       arg4: c_int)
+                                                       -> status>;
+pub type video_read_frame_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                             arg2: *mut *mut frame,
+                                                             arg3: io_flag,
+                                                             arg4: c_int)
+                                                             -> status>;
+pub type write_frame_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                        arg2: *mut frame,
+                                                        arg3: io_flag,
+                                                        arg4: c_int)
+                                                        -> status>;
+pub type video_write_frame_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                              arg2: *mut frame,
+                                                              arg3: io_flag,
+                                                              arg4: c_int)
+                                                              -> status>;
+pub type kill_channel_hook = Option<unsafe extern "C" fn(arg1: *mut core_session, arg2: c_int)
+                                                         -> status>;
+pub type send_dtmf_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                      arg2: *const dtmf,
+                                                      direction: dtmf_direction)
+                                                      -> status>;
+pub type recv_dtmf_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
+                                                      arg2: *const dtmf,
+                                                      direction: dtmf_direction)
+                                                      -> status>;
+pub type state_change_hook = Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
+pub type state_run_hook = Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[derive(Debug)]
@@ -4886,10 +4837,9 @@ impl std::default::Default for teletone_dds_state {
     }
 }
 pub type teletone_audio = i16;
-pub type tone_handler =
-    std::option::Option<unsafe extern "C" fn(ts: *mut teletone_generation_session,
-                                             map: *mut teletone_tone_map)
-                                             -> c_int>;
+pub type tone_handler = Option<unsafe extern "C" fn(ts: *mut teletone_generation_session,
+                                                    map: *mut teletone_tone_map)
+                                                    -> c_int>;
 #[repr(C)]
 #[derive(Copy)]
 pub struct teletone_generation_session {
@@ -5677,7 +5627,7 @@ extern "C" {
                                                    callback:
                                                        media_bug_callback,
                                                    user_data_dup_func:
-                                                       std::option::Option<unsafe extern "C" fn(arg1:
+                                                       Option<unsafe extern "C" fn(arg1:
                                                                                                       *mut core_session,
                                                                                                   arg2:
                                                                                                       *mut c_void)
@@ -6051,17 +6001,11 @@ extern "C" {
     #[link_name="switch_core_session_get_stream_count"]
     pub fn core_session_get_stream_count(session: *mut core_session) -> c_int;
     #[link_name="switch_core_session_launch_thread"]
-    pub fn core_session_launch_thread(session:
-                                                 *mut core_session,
-                                             func:
-                                                 std::option::Option<unsafe extern "C" fn(arg1:
-                                                                                                *mut thread,
-                                                                                            arg2:
-                                                                                                *mut c_void)
-                                                                           ->
-                                                                               *mut c_void>,
-                                             obj:
-                                                 *mut c_void);
+    pub fn core_session_launch_thread(session: *mut core_session,
+                                      func: Option<unsafe extern "C" fn(arg1: *mut thread,
+                                                                        arg2: *mut c_void)
+                                                                        -> *mut c_void>,
+                                      obj: *mut c_void);
     #[link_name="switch_core_thread_session_end"]
     pub fn core_thread_session_end(session: *mut core_session);
     #[link_name="switch_core_service_session_av"]
@@ -6607,9 +6551,9 @@ extern "C" {
     #[link_name="switch_core_get_console"]
     pub fn core_get_console() -> *mut FILE;
     #[link_name="switch_core_launch_thread"]
-    pub fn core_launch_thread(func: std::option::Option<unsafe extern "C" fn(arg1: *mut thread,
-                                                                             arg2: *mut c_void)
-                                                                             -> *mut c_void>,
+    pub fn core_launch_thread(func: Option<unsafe extern "C" fn(arg1: *mut thread,
+                                                                arg2: *mut c_void)
+                                                                -> *mut c_void>,
                               obj: *mut c_void,
                               pool: *mut memory_pool)
                               -> *mut thread;
