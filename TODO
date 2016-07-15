@@ -1,0 +1,9 @@
+Status - Right now it's a Result (),raw::status. What should it be?
+Create preulude - once there's more of an API
+Panic safety - Cargo option for abort-on-panic should work
+Naming - should we change naming and casing of structs (SnakeCase) and kill caps on enums?
+Bitfields - bitfield! macro 
+Trampolines - we need to get libffi (closures.c) connected to generate trampolines at runtime
+              in order to wrap safe Rusty APIs into the C funcptrs for interfaces
+Iterators - At least common linked lists should have iterators impl'd on them,
+            even in the raw interface. 
