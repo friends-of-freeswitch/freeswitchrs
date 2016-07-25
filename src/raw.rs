@@ -23,7 +23,7 @@ pub fn str_to_ptr(s: &str) -> *mut c_char {
     unsafe {
         let res = ::libc::malloc(s.len() + 1) as *mut c_char;
         std::ptr::copy_nonoverlapping(s.as_ptr(), res as *mut u8, s.len());
-        *res.offset(s.len() as isize + 1) = 0;
+        *res.offset(s.len() as isize) = 0;
         res
     }
 }

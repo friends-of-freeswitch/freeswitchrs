@@ -12,3 +12,10 @@ path = ".."
 crate-type = ["dylib"]
 name = "mod_skelr"
 path = "mod_skelr.rs"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+

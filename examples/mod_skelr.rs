@@ -1,4 +1,5 @@
 #[macro_use]
+// extern crate libc;
 extern crate freeswitchrs;
 
 use freeswitchrs::raw as fsr;
@@ -7,6 +8,7 @@ use freeswitchrs::Status;
 
 fn my_load(mod_int: &ModInterface) -> Status {
     mod_int.add_raw_api("skelr", "Example doc", "skelr", skelr_api);
+    mod_int.add_raw_api("rpanic", "panics with msg", "panic msg", skelr_panic);
 
     // Example of binding to an event
     // freeswitchrs::event_bind("asd", fsr::event_types::ADD_SCHEDULE, "",
@@ -30,4 +32,13 @@ unsafe extern "C" fn skelr_api(cmd: *const std::os::raw::c_char,
                                -> fsr::status {
     (*stream).write_function.unwrap()(stream, fsr::str_to_ptr("OK"));
     fsr::status::SUCCESS
+}
+
+#[allow(unused_variables)]
+unsafe extern "C" fn skelr_panic(cmd: *const std::os::raw::c_char,
+                                 session: *mut fsr::core_session,
+                                 stream: *mut fsr::stream_handle)
+                                 -> fsr::status {
+    let s = std::ffi::CStr::from_ptr(cmd).to_str().unwrap();
+    panic!(s);
 }
