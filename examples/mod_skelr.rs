@@ -7,6 +7,10 @@ use freeswitchrs::Status;
 
 fn my_load(mod_int: &ModInterface) -> Status {
     mod_int.add_raw_api("skelr", "Example doc", "skelr", skelr_api);
+
+    // Example of binding to an event
+    // freeswitchrs::event_bind("asd", fsr::event_types::ADD_SCHEDULE, "",
+    //                          |e| { println!("{:?}", (*e.as_ptr()).flags )});
     Ok(())
 }
 

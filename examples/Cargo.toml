@@ -1,0 +1,14 @@
+[package]
+name = "mod_skelr"
+version = "0.1.0"
+authors = ["Michael Giagnocavo <mgg@giagnocavo.net>"]
+
+[dependencies]
+
+[dependencies.freeswitchrs]
+path = ".."
+
+[lib]
+crate-type = ["dylib"]
+name = "mod_skelr"
+path = "mod_skelr.rs"
