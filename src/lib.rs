@@ -39,7 +39,7 @@ impl Event {
     gen_from_ptr!(fsr::event, Event, Event);
 }
 
-pub fn event_bind<F>(id: &str, event: fsr::event_types, subclass_name: &str, callback: F)
+pub fn event_bind<F>(id: &str, event: fsr::event_types, subclass_name: Option<&str>, callback: F)
     where F: Fn(Event)
 {
     // TODO: Can you modify events in the callback?
@@ -56,7 +56,7 @@ pub fn event_bind<F>(id: &str, event: fsr::event_types, subclass_name: &str, cal
     let bx = std::boxed::Box::new(callback);
     let fp = std::boxed::Box::into_raw(bx);
     let id = fsr::str_to_ptr(id);
-    let subclass_name = fsr::str_to_ptr(subclass_name);
+    let subclass_name = subclass_name.map_or(std::ptr::null(), |x| fsr::str_to_ptr(x));
     unsafe {
         fsr::event_bind(id,
                         event,
