@@ -2,7 +2,8 @@ use super::*;
 use super::raw as fsr;
 use std::ffi::CString;
 use super::raw::module_interface_name as IntName;
-use std::os::raw::c_char;
+use libc::c_char;
+use libc::c_void;
 
 pub enum Stream { } // Temp until wrap stream
 pub type ApiFunc = fn(String, Option<&CoreSession>, Stream);
@@ -15,7 +16,7 @@ pub struct ModInterface(*mut fsr::loadable_module_interface);
 impl ModInterface {
     gen_from_ptr!(fsr::loadable_module_interface, ModInterface, ModInterface);
 
-    unsafe fn create_int(&self, iname: IntName) -> *mut ::std::os::raw::c_void {
+    unsafe fn create_int(&self, iname: IntName) -> *mut c_void {
         fsr::loadable_module_create_interface((*self).0, iname)
     }
 

@@ -4,7 +4,17 @@
          non_snake_case)]
 
 use std;
-use std::os::raw::*;
+use ::libc::c_void;
+use ::libc::c_char;
+use ::libc::c_uchar;
+use ::libc::c_short;
+use ::libc::c_int;
+use ::libc::c_uint;
+//use ::libc::c_long;
+use ::libc::c_ulong;
+use ::libc::timeval;
+use ::libc::time_t;
+use ::libc::FILE;
 
 /// This function copies a &str to a C-style nul-terminated char*.
 /// It uses malloc, so that other code (FreeSWITCH) can call free() on it.
@@ -17,22 +27,6 @@ pub fn str_to_ptr(s: &str) -> *mut c_char {
         res
     }
 }
-
-pub type time_t = c_long;
-
-#[repr(C)]
-#[derive(Copy, Clone)]
-#[derive(Debug)]
-pub struct timeval {
-    pub tv_sec: c_long,
-    pub tv_usec: c_long,
-}
-impl std::default::Default for timeval {
-    fn default() -> Self {
-        unsafe { std::mem::zeroed() }
-    }
-}
-pub enum FILE {}
 
 #[repr(C)]
 #[derive(Copy, Clone)]
