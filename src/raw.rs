@@ -29,7 +29,6 @@ pub fn str_to_ptr(s: &str) -> *mut c_char {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct in6_addr {
     pub __in6_u: [u32; 4usize],
@@ -41,7 +40,6 @@ impl std::default::Default for in6_addr {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cJSON {
     pub next: *mut cJSON,
@@ -59,7 +57,6 @@ impl std::default::Default for cJSON {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cJSON_Hooks {
     pub malloc_fn: Option<extern "C" fn(sz: usize) -> *mut c_void>,
@@ -70,9 +67,8 @@ impl std::default::Default for cJSON_Hooks {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum vpx_img_fmt {
     NONE = 0,
     RGB24 = 1,
@@ -101,9 +97,8 @@ pub enum vpx_img_fmt {
     I44416 = 2310,
     I44016 = 2311,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum vpx_color_space {
     UNKNOWN = 0,
     BT_601 = 1,
@@ -114,15 +109,13 @@ pub enum vpx_color_space {
     RESERVED = 6,
     SRGB = 7,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum vpx_color_range {
     STUDIO_RANGE = 0,
     FULL_RANGE = 1,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct vpx_image {
     pub fmt: vpx_img_fmt,
@@ -152,7 +145,6 @@ impl std::default::Default for vpx_image {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct vpx_image_rect {
     pub x: c_uint,
@@ -165,16 +157,14 @@ impl std::default::Default for vpx_image_rect {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum pvt_class {
     PRIMARY = 0,
     SECONDARY = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum dtmf_source {
     UNKNOWN = 0,
     INBAND_AUDIO = 1,
@@ -182,23 +172,20 @@ pub enum dtmf_source {
     ENDPOINT = 3,
     APP = 4,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum digit_action_target {
     SELF = 0,
     PEER = 1,
     BOTH = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum dtmf_flag {
     SKIP_PROCESS = 1,
     SENSITIVE = 2,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct dtmf {
     pub digit: c_char,
@@ -211,16 +198,14 @@ impl std::default::Default for dtmf {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum call_direction {
     INBOUND = 0,
     OUTBOUND = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum bind_flag_enum {
     DIAL_ALEG = 1,
     EXEC_ALEG = 2,
@@ -232,16 +217,14 @@ pub enum bind_flag_enum {
     EXEC_INLINE = 128,
 }
 pub type bind_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum dtmf_direction {
     RECV = 0,
     SEND = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum originate_flag_enum {
     NONE = 0,
     NOBLOCK = 1,
@@ -253,9 +236,8 @@ pub enum originate_flag_enum {
     NO_LIMITS = 64,
 }
 pub type originate_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum port_flag_enum {
     NONE = 0,
     ODD = 1,
@@ -264,9 +246,8 @@ pub enum port_flag_enum {
     ROBUST_UDP = 8,
 }
 pub type port_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum eavesdrop_flag_enum {
     NONE = 0,
     MUX_READ = 1,
@@ -277,9 +258,8 @@ pub enum eavesdrop_flag_enum {
     BRIDGE_WRITE = 32,
 }
 pub type eavesdrop_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_flag_enum {
     NONE = 0,
     USE_SQL = 1,
@@ -310,9 +290,8 @@ pub enum core_flag_enum {
     DIALPLAN_TIMESTAMPS = 16777216,
 }
 pub type core_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum module_interface_name {
     ENDPOINT_INTERFACE = 0,
     TIMER_INTERFACE = 1,
@@ -331,9 +310,8 @@ pub enum module_interface_name {
     CHAT_APPLICATION_INTERFACE = 14,
     JSON_API_INTERFACE = 15,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum unicast_flag_enum {
     NONE = 0,
     THREAD_RUNNING = 1,
@@ -341,16 +319,14 @@ pub enum unicast_flag_enum {
     NATIVE = 4,
 }
 pub type unicast_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum switch_bool {
     FALSE = 0,
     TRUE = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum say_method {
     NA = 0,
     PRONOUNCED = 1,
@@ -358,9 +334,8 @@ pub enum say_method {
     COUNTED = 3,
     PRONOUNCED_YEAR = 4,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum say_type {
     NUMBER = 0,
     ITEMS = 1,
@@ -382,26 +357,23 @@ pub enum say_type {
     NAME_PHONETIC = 17,
     SHORT_DATE_TIME = 18,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum say_gender {
     MASCULINE = 0,
     FEMININE = 1,
     NEUTER = 2,
     UTRUM = 3,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum management_action {
     NONE = 0,
     GET = 1,
     SET = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum scheduler_flag_enum {
     NONE = 0,
     OWN_THREAD = 1,
@@ -409,9 +381,8 @@ pub enum scheduler_flag_enum {
     NO_DEL = 4,
 }
 pub type scheduler_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum media_flag_enum {
     NONE = 0,
     REBRIDGE = 1,
@@ -427,16 +398,14 @@ pub enum media_flag_enum {
     REPLYONLY_B = 1024,
 }
 pub type media_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum bitpack_mode {
     RFC3551 = 0,
     AAL2 = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum abc_type {
     INIT = 0,
     READ = 1,
@@ -453,7 +422,6 @@ pub enum abc_type {
     VIDEO_PATCH = 12,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct directories {
     pub base_dir: *mut c_char,
@@ -483,7 +451,6 @@ impl std::default::Default for directories {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct filenames {
     pub conf_name: *mut c_char,
@@ -493,16 +460,14 @@ impl std::default::Default for filenames {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rw {
     READ = 0,
     WRITE = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum caller_profile_flag_enum {
     NONE = 0,
     SCREEN = 1,
@@ -510,9 +475,8 @@ pub enum caller_profile_flag_enum {
     HIDE_NUMBER = 4,
 }
 pub type caller_profile_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum audio_col {
     STR_TITLE = 1,
     STR_COPYRIGHT = 2,
@@ -522,9 +486,8 @@ pub enum audio_col {
     STR_DATE = 6,
 }
 pub const XML_SECTION_MAX: xml_section_enum = xml_section_enum::CHANNELS;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum xml_section_enum {
     RESULT = 0,
     CONFIG = 1,
@@ -535,9 +498,8 @@ pub enum xml_section_enum {
     CHANNELS = 32,
 }
 pub type xml_section = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum vad_flag_enum {
     TALKING = 1,
     EVENTS_TALK = 2,
@@ -546,7 +508,6 @@ pub enum vad_flag_enum {
 }
 pub type vad_flag = u32;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct error_period {
     pub start: i64,
@@ -560,7 +521,6 @@ impl std::default::Default for error_period {
 }
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct rtp_numbers {
     pub raw_bytes: usize,
     pub media_bytes: usize,
@@ -594,18 +554,12 @@ pub struct rtp_numbers {
     pub mos: f64,
     pub error_log: *mut error_period,
 }
-impl std::clone::Clone for rtp_numbers {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for rtp_numbers {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct rtcp_numbers {
     pub packet_count: u32,
@@ -637,7 +591,6 @@ impl std::default::Default for rtcp_numbers {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct rtp_stats {
     pub inbound: rtp_numbers,
     pub outbound: rtp_numbers,
@@ -649,17 +602,15 @@ impl std::default::Default for rtp_stats {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtp_flush {
     ONCE = 0,
     STICK = 1,
     UNSTICK = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtp_flag {
     NOBLOCK = 0,
     DTMF_ON = 1,
@@ -706,9 +657,8 @@ pub enum rtp_flag {
     GEN_TS_DELTA = 42,
     INVALID = 43,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtp_bug_flag {
     NONE = 0,
     CISCO_SKIP_MARK_BIT_2833 = 1,
@@ -726,7 +676,6 @@ pub enum rtp_bug_flag {
     ALWAYS_AUTO_ADJUST = 4096,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct rtp_hdr {
     pub _bindgen_bitfield_1_: c_uint,
@@ -739,7 +688,6 @@ impl std::default::Default for rtp_hdr {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct rtp_hdr_ext {
     pub _bindgen_bitfield_1_: c_uint,
@@ -750,7 +698,6 @@ impl std::default::Default for rtp_hdr_ext {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct rtcp_hdr {
     pub _bindgen_bitfield_1_: c_uint,
@@ -761,7 +708,6 @@ impl std::default::Default for rtcp_hdr {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct audio_buffer_header {
     pub ts: u32,
@@ -772,26 +718,23 @@ impl std::default::Default for audio_buffer_header {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum priority {
     NORMAL = 0,
     LOW = 1,
     HIGH = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum ivr_option_enum {
     NONE = 0,
     ASYNC = 1,
     FILE = 2,
 }
 pub type ivr_option = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_session_message_types {
     REDIRECT_AUDIO = 0,
     TRANSMIT_TEXT = 1,
@@ -853,7 +796,6 @@ pub enum core_session_message_types {
     INVALID = 57,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct t38_options {
     pub T38FaxVersion: u16,
@@ -877,9 +819,8 @@ impl std::default::Default for t38_options {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum stack {
     BOTTOM = 1,
     TOP = 2,
@@ -887,9 +828,8 @@ pub enum stack {
     UNSHIFT = 8,
     PUSH = 16,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum status {
     SUCCESS = 0,
     FALSE = 1,
@@ -918,9 +858,8 @@ pub enum status {
     XBREAK = 35,
     WINBREAK = 730035,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum log_level {
     DEBUG10 = 110,
     DEBUG9 = 109,
@@ -943,27 +882,24 @@ pub enum log_level {
     INVALID = 64,
     UNINIT = 1000,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum text_channel {
     ID_LOG = 0,
     ID_LOG_CLEAN = 1,
     ID_EVENT = 2,
     ID_SESSION = 3,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_session_message_flag_enum {
     DYNAMIC = 1,
     FREE_STRING_REPLY = 2,
     FREE_POINTER_REPLY = 4,
 }
 pub type core_session_message_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum channel_callstate {
     DOWN = 0,
     DIALING = 1,
@@ -975,9 +911,8 @@ pub enum channel_callstate {
     HANGUP = 7,
     UNHELD = 8,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum device_state {
     DOWN = 0,
     RINGING = 1,
@@ -987,9 +922,8 @@ pub enum device_state {
     UNHELD = 5,
     HANGUP = 6,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum channel_state {
     NEW = 0,
     INIT = 1,
@@ -1006,17 +940,15 @@ pub enum channel_state {
     DESTROY = 12,
     NONE = 13,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum ring_ready {
     NONE = 0,
     RINGING = 1,
     QUEUED = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum channel_cap {
     MEDIA_ACK = 1,
     BYPASS_MEDIA = 2,
@@ -1026,9 +958,8 @@ pub enum channel_cap {
     QUEUEABLE_DTMF_DELAY = 6,
     FLAG_MAX = 7,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum channel_flag {
     ANSWERED = 1,
     OUTBOUND = 2,
@@ -1172,7 +1103,6 @@ pub enum channel_flag {
     FLAG_MAX = 140,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct vid_params {
     pub width: u32,
@@ -1184,9 +1114,8 @@ impl std::default::Default for vid_params {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum channel_app_flag {
     TAGGED = 1,
     T38 = 2,
@@ -1194,9 +1123,8 @@ pub enum channel_app_flag {
     T38_FAIL = 8,
     T38_NEGOTIATED = 16,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum frame_flag_enum {
     NONE = 0,
     CNG = 1,
@@ -1219,9 +1147,8 @@ pub enum frame_flag_enum {
     ENCODED = 131072,
 }
 pub type frame_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum application_flag_enum {
     NONE = 0,
     SUPPORT_NOMEDIA = 1,
@@ -1231,25 +1158,22 @@ pub enum application_flag_enum {
     NO_LOOPBACK = 16,
 }
 pub type application_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum chat_application_flag_enum {
     NONE = 0,
 }
 pub type chat_application_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum signal {
     NONE = 0,
     KILL = 1,
     XFER = 2,
     BREAK = 3,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum codec_flag_enum {
     ENCODE = 1,
     DECODE = 2,
@@ -1264,9 +1188,8 @@ pub enum codec_flag_enum {
     VIDEO_PATCHING = 65536,
 }
 pub type codec_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum speech_flag_enum {
     NONE = 0,
     HASTEXT = 1,
@@ -1278,9 +1201,8 @@ pub enum speech_flag_enum {
     DONE = 64,
 }
 pub type speech_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum asr_flag_enum {
     NONE = 0,
     DATA = 1,
@@ -1290,39 +1212,34 @@ pub enum asr_flag_enum {
     AUTO_RESUME = 16,
 }
 pub type asr_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum directory_flag_enum {
     FREE_POOL = 1,
 }
 pub type directory_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum codec_type {
     AUDIO = 0,
     VIDEO = 1,
     T38 = 2,
     APP = 3,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum media_type {
     AUDIO = 0,
     VIDEO = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum switch_timer_flag_enum {
     FREE_POOL = 1,
 }
 pub type switch_timer_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum media_bug_flag_enum {
     BOTH = 0,
     READ_STREAM = 1,
@@ -1352,9 +1269,8 @@ pub enum media_bug_flag_enum {
     READ_VIDEO_PATCH = 16777216,
 }
 pub type media_bug_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum file_flag_enum {
     FLAG_READ = 1,
     FLAG_WRITE = 2,
@@ -1379,9 +1295,8 @@ pub enum file_flag_enum {
     FLAG_VIDEO_EOF = 1048576,
 }
 pub type file_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum io_flag_enum {
     NONE = 0,
     NOBLOCK = 1,
@@ -1389,9 +1304,8 @@ pub enum io_flag_enum {
     FORCE = 4,
 }
 pub type io_flag = u32;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum event_types {
     CUSTOM = 0,
     CLONE = 1,
@@ -1484,16 +1398,14 @@ pub enum event_types {
     DEVICE_STATE = 88,
     ALL = 89,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum input_type {
     INPUT_TYPE_DTMF = 0,
     INPUT_TYPE_EVENT = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum call_cause {
     NONE = 0,
     UNALLOCATED_NUMBER = 1,
@@ -1566,9 +1478,8 @@ pub enum call_cause {
     NO_PICKUP = 612,
     SRTP_READ_ERROR = 613,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum session_ctl {
     PAUSE_INBOUND = 0,
     PAUSE_OUTBOUND = 1,
@@ -1614,9 +1525,8 @@ pub enum session_ctl {
     SESSIONS_PEAK = 41,
     SESSIONS_PEAK_FIVEMIN = 42,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum state_handler_flag {
     STICKY = 1,
 }
@@ -1641,7 +1551,6 @@ pub enum core_port_allocator { }
 pub enum media_bug { }
 pub type hashtable_destructor = Option<unsafe extern "C" fn(ptr: *mut c_void)>;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct console_callback_match_node {
     pub val: *mut c_char,
@@ -1653,7 +1562,6 @@ impl std::default::Default for console_callback_match_node {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct console_callback_match {
     pub head: *mut console_callback_match_node,
@@ -1717,9 +1625,8 @@ pub type core_codec_video_encode_func = Option<unsafe extern "C" fn(codec: *mut 
 pub type core_codec_video_decode_func = Option<unsafe extern "C" fn(codec: *mut codec,
                                                                     frame: *mut frame)
                                                                     -> status>;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum codec_control_command {
     SCC_VIDEO_GEN_KEYFRAME = 0,
     SCC_VIDEO_BANDWIDTH = 1,
@@ -1728,17 +1635,15 @@ pub enum codec_control_command {
     SCC_DEBUG = 4,
     SCC_CODEC_SPECIFIC = 5,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum codec_control_type {
     SCCT_NONE = 0,
     SCCT_STRING = 1,
     SCCT_INT = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum io_type {
     IO_READ = 0,
     IO_WRITE = 1,
@@ -1804,16 +1709,14 @@ pub type read_frame_callback_function = Option<unsafe extern "C" fn(session: *mu
                                                                     frame: *mut frame,
                                                                     user_data: *mut c_void)
                                                                     -> status>;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum dm_match_type {
     POSITIVE = 0,
     NEGATIVE = 1,
 }
 pub enum ivr_dmachine { }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct ivr_dmachine_match {
     pub dmachine: *mut ivr_dmachine,
@@ -1830,7 +1733,6 @@ impl std::default::Default for ivr_dmachine_match {
 pub type ivr_dmachine_callback = Option<unsafe extern "C" fn(match_: *mut ivr_dmachine_match)
                                                              -> status>;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct input_args {
     pub input_callback: input_callback_function,
@@ -1847,7 +1749,6 @@ impl std::default::Default for input_args {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct say_args {
     pub type_: say_type,
@@ -1899,25 +1800,22 @@ pub type module_load =
                                 -> status>;
 pub type module_runtime = Option<extern "C" fn() -> status>;
 pub type module_shutdown = Option<extern "C" fn() -> status>;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum thread_priority {
     LOW = 1,
     NORMAL = 10,
     IMPORTANT = 50,
     REALTIME = 99,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum module_flag_enum {
     NONE = 0,
     GLOBAL_SYMBOLS = 1,
 }
 pub type module_flag = u32;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct loadable_module_function_table {
     pub api_version: c_int,
@@ -1942,16 +1840,14 @@ pub type event_channel_func = Option<unsafe extern "C" fn(event_channel: *const 
                                                           key: *const c_char,
                                                           id: event_channel_id)>;
 pub enum live_array { }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum sdp_type {
     REQUEST = 0,
     RESPONSE = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtp_crypto_key_type {
     AEAD_AES_256_GCM_8 = 0,
     AEAD_AES_128_GCM_8 = 1,
@@ -1965,7 +1861,6 @@ pub enum rtp_crypto_key_type {
     CRYPTO_INVALID = 9,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct payload_map {
     pub type_: media_type,
@@ -1999,9 +1894,8 @@ impl std::default::Default for payload_map {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum media_flow {
     SENDRECV = 0,
     SENDONLY = 1,
@@ -2009,17 +1903,15 @@ pub enum media_flow {
     INACTIVE = 3,
     DISABLED = 4,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_media_ice_type {
     GOOGLE_JINGLE = 1,
     VANILLA = 2,
     CONTROLLED = 4,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum poll {
     READ = 1,
     WRITE = 2,
@@ -2031,7 +1923,6 @@ pub enum poll {
     INVALID = 128,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct waitlist {
     pub sock: os_socket,
@@ -2046,25 +1937,22 @@ impl std::default::Default for waitlist {
 pub enum jb { }
 pub enum img_txt_handle { }
 pub enum frame_buffer { }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum video_read_flag {
     BLOCK = 1,
     FLUSH = 2,
     CHECK = 4,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum vid_spy_fmt {
     LOWER_RIGHT_SMALL = 0,
     LOWER_RIGHT_LARGE = 1,
     DUAL_CROP = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum file_command {
     FLUSH_AUDIO = 0,
     PAUSE_READ = 1,
@@ -2072,7 +1960,6 @@ pub enum file_command {
 pub type thread_id = c_ulong;
 pub type interval_time_t = i64;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct time_exp {
     pub tm_usec: i32,
@@ -2099,7 +1986,6 @@ pub type thread_rwlock = apr_thread_rwlock;
 pub enum apr_thread_cond { }
 pub type thread_cond = apr_thread_cond;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct uuid {
     pub data: [c_uchar; 16usize],
@@ -2117,7 +2003,6 @@ pub type fileperms = i32;
 pub type seek_where = c_int;
 pub enum dir { }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct array_header {
     pub pool: *mut memory_pool,
@@ -2140,17 +2025,15 @@ pub type thread_start = Option<unsafe extern "C" fn(arg1: *mut thread, arg2: *mu
 pub enum apr_socket { }
 pub type socket = apr_socket;
 pub enum sockaddr {}
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum shutdown_how_e {
     READ = 0,
     WRITE = 1,
     READWRITE = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum pollset_type {
     NO_DESC = 0,
     SOCKET = 1,
@@ -2158,7 +2041,6 @@ pub enum pollset_type {
     LASTDESC = 3,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct descriptor {
     pub _bindgen_data_: [u64; 1usize],
@@ -2179,7 +2061,6 @@ impl std::default::Default for descriptor {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct pollfd {
     pub p: *mut memory_pool,
@@ -2215,7 +2096,6 @@ pub type dso_data = *mut c_void;
 pub enum real_pcre { }
 pub type regex = real_pcre;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct core_time_duration {
     pub mms: u32,
@@ -2232,7 +2112,6 @@ impl std::default::Default for core_time_duration {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct app_log {
     pub app: *mut c_char,
@@ -2246,7 +2125,6 @@ impl std::default::Default for app_log {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct thread_data {
     pub func: thread_start,
@@ -2260,7 +2138,6 @@ impl std::default::Default for thread_data {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct hold_record {
     pub on: time_t,
@@ -2274,7 +2151,6 @@ impl std::default::Default for hold_record {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct device_uuid_node {
     pub uuid: *mut c_char,
@@ -2293,7 +2169,6 @@ impl std::default::Default for device_uuid_node {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct device_stats {
     pub total: u32,
@@ -2328,7 +2203,6 @@ impl std::default::Default for device_stats {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct device_record {
     pub device_id: *mut c_char,
@@ -2361,17 +2235,11 @@ pub type device_state_function = Option<unsafe extern "C" fn(session: *mut core_
                                                              callstate: channel_callstate,
                                                              drec: *mut device_record)>;
 #[repr(C)]
-#[derive(Copy)]
 pub struct dtls_fp_s {
     pub len: u32,
     pub data: [u8; 65usize],
     pub type_: *mut c_char,
     pub str: [c_char; 192usize],
-}
-impl std::clone::Clone for dtls_fp_s {
-    fn clone(&self) -> Self {
-        *self
-    }
 }
 impl std::default::Default for dtls_fp_s {
     fn default() -> Self {
@@ -2379,18 +2247,16 @@ impl std::default::Default for dtls_fp_s {
     }
 }
 pub type dtls_fingerprint = dtls_fp_s;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum dtls_type {
     DTLS_TYPE_CLIENT = 1,
     DTLS_TYPE_SERVER = 2,
     DTLS_TYPE_RTP = 4,
     DTLS_TYPE_RTCP = 8,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum dtls_state {
     DS_OFF = 0,
     DS_HANDSHAKE = 1,
@@ -2400,7 +2266,6 @@ pub enum dtls_state {
     DS_INVALID = 5,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct core_session_message {
     pub from: *mut c_char,
@@ -2428,7 +2293,6 @@ impl std::default::Default for core_session_message {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct core_thread_session {
     pub running: c_int,
     pub mutex: *mut mutex,
@@ -2436,20 +2300,14 @@ pub struct core_thread_session {
     pub input_callback: input_callback_function,
     pub pool: *mut memory_pool,
 }
-impl std::clone::Clone for core_thread_session {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for core_thread_session {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 pub enum core_runtime { }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum hup_type {
     NONE = 0,
     UNANSWERED = 1,
@@ -2458,23 +2316,20 @@ pub enum hup_type {
 pub type core_db_event_callback_func = Option<unsafe extern "C" fn(pArg: *mut c_void,
                                                                    event: *mut event)
                                                                    -> c_int>;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum cache_db_flag {
     INUSE = 1,
     PRUNE = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum cache_db_handle_type {
     CORE_DB = 0,
     ODBC = 1,
     PGSQL = 2,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cache_db_native_handle {
     pub _bindgen_data_: [u64; 1usize],
@@ -2499,7 +2354,6 @@ impl std::default::Default for cache_db_native_handle {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cache_db_core_db_options {
     pub db_path: *mut c_char,
@@ -2510,7 +2364,6 @@ impl std::default::Default for cache_db_core_db_options {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cache_db_odbc_options {
     pub dsn: *mut c_char,
@@ -2523,7 +2376,6 @@ impl std::default::Default for cache_db_odbc_options {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cache_db_pgsql_options {
     pub dsn: *mut c_char,
@@ -2534,7 +2386,6 @@ impl std::default::Default for cache_db_pgsql_options {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cache_db_connection_options {
     pub _bindgen_data_: [u64; 3usize],
@@ -2560,7 +2411,6 @@ impl std::default::Default for cache_db_connection_options {
 }
 pub enum cache_db_handle { }
 #[repr(C)]
-#[derive(Copy)]
 pub struct log_node {
     pub data: *mut c_char,
     pub file: [c_char; 80usize],
@@ -2573,11 +2423,6 @@ pub struct log_node {
     pub channel: text_channel,
     pub slevel: log_level,
 }
-impl std::clone::Clone for log_node {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for log_node {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
@@ -2586,7 +2431,6 @@ impl std::default::Default for log_node {
 pub type log_function = Option<unsafe extern "C" fn(node: *const log_node, level: log_level)
                                                     -> status>;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct audio_resampler {
     pub resampler: *mut c_void,
@@ -2604,9 +2448,8 @@ impl std::default::Default for audio_resampler {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum state_handler_name {
     ON_INIT = 0,
     ON_ROUTING = 1,
@@ -2622,7 +2465,6 @@ pub enum state_handler_name {
     ON_DESTROY = 11,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct state_handler_table {
     pub on_init: state_handler,
@@ -2704,9 +2546,8 @@ pub type io_write_video_frame = Option<unsafe extern "C" fn(arg1: *mut core_sess
                                                             -> status>;
 pub type io_get_jb = Option<unsafe extern "C" fn(arg1: *mut core_session, arg2: media_type)
                                                  -> *mut jb>;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum io_routine_name {
     OUTGOING_CHANNEL = 0,
     READ_FRAME = 1,
@@ -2721,7 +2562,6 @@ pub enum io_routine_name {
     GET_JB = 10,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_routines {
     pub outgoing_channel: io_outgoing_channel,
@@ -2744,7 +2584,6 @@ impl std::default::Default for io_routines {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct endpoint_interface {
     pub interface_name: *const c_char,
@@ -2764,7 +2603,6 @@ impl std::default::Default for endpoint_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct timer {
     pub interval: c_int,
@@ -2783,9 +2621,8 @@ impl std::default::Default for timer {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum timer_func_name {
     TIMER_INIT = 0,
     TIMER_NEXT = 1,
@@ -2795,7 +2632,6 @@ pub enum timer_func_name {
     TIMER_DESTROY = 5,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct timer_interface {
     pub interface_name: *const c_char,
@@ -2817,7 +2653,6 @@ impl std::default::Default for timer_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct dialplan_interface {
     pub interface_name: *const c_char,
@@ -2834,7 +2669,6 @@ impl std::default::Default for dialplan_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct file_interface {
     pub interface_name: *const c_char,
@@ -2884,24 +2718,21 @@ impl std::default::Default for file_interface {
     }
 }
 pub const VIDEO_ENCODE_SPEED_FAST: video_encode_speed = video_encode_speed::DEFAULT;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum video_encode_speed {
     DEFAULT = 0,
     MEDIUM = 1,
     SLOW = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum video_profile {
     BASELINE = 0,
     MAIN = 1,
     HIGH = 2,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct mm {
     pub samplerate: c_int,
@@ -2924,7 +2755,6 @@ impl std::default::Default for mm {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct file_handle {
     pub file_interface: *mut file_interface,
@@ -2984,7 +2814,6 @@ impl std::default::Default for file_handle {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct asr_interface {
     pub interface_name: *const c_char,
@@ -3049,7 +2878,6 @@ impl std::default::Default for asr_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct asr_handle {
     pub asr_interface: *mut asr_interface,
@@ -3074,7 +2902,6 @@ impl std::default::Default for asr_handle {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct speech_interface {
     pub interface_name: *const c_char,
@@ -3118,7 +2945,6 @@ impl std::default::Default for speech_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct speech_handle {
     pub speech_interface: *mut speech_interface,
     pub flags: u32,
@@ -3140,18 +2966,12 @@ pub struct speech_handle {
     pub native_rate: u32,
     pub private_info: *mut c_void,
 }
-impl std::clone::Clone for speech_handle {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for speech_handle {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct say_interface {
     pub interface_name: *const c_char,
@@ -3169,7 +2989,6 @@ impl std::default::Default for say_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct chat_interface {
     pub interface_name: *const c_char,
@@ -3186,7 +3005,6 @@ impl std::default::Default for chat_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct management_interface {
     pub relative_oid: *const c_char,
@@ -3207,7 +3025,6 @@ impl std::default::Default for management_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct limit_interface {
     pub interface_name: *const c_char,
@@ -3241,7 +3058,6 @@ impl std::default::Default for limit_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct directory_interface {
     pub interface_name: *const c_char,
@@ -3272,7 +3088,6 @@ impl std::default::Default for directory_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct directory_handle {
     pub directory_interface: *mut directory_interface,
@@ -3286,7 +3101,6 @@ impl std::default::Default for directory_handle {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct audio_codec_settings {
     pub unused: c_int,
@@ -3297,7 +3111,6 @@ impl std::default::Default for audio_codec_settings {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct video_codec_settings {
     pub bandwidth: u32,
@@ -3311,7 +3124,6 @@ impl std::default::Default for video_codec_settings {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct codec_settings {
     pub _bindgen_data_: [u32; 4usize],
@@ -3332,7 +3144,6 @@ impl std::default::Default for codec_settings {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct codec_fmtp {
     pub actual_samples_per_second: u32,
@@ -3347,7 +3158,6 @@ impl std::default::Default for codec_fmtp {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct picture {
     pub width: u32,
@@ -3361,7 +3171,6 @@ impl std::default::Default for picture {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct codec {
     pub codec_interface: *mut codec_interface,
@@ -3383,7 +3192,6 @@ impl std::default::Default for codec {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct codec_implementation {
     pub codec_type: codec_type,
@@ -3417,7 +3225,6 @@ impl std::default::Default for codec_implementation {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct codec_interface {
     pub interface_name: *const c_char,
@@ -3437,7 +3244,6 @@ impl std::default::Default for codec_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct application_interface {
     pub interface_name: *const c_char,
@@ -3458,7 +3264,6 @@ impl std::default::Default for application_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct chat_application_interface {
     pub interface_name: *const c_char,
@@ -3479,7 +3284,6 @@ impl std::default::Default for chat_application_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct api_interface {
     pub interface_name: *const c_char,
@@ -3498,7 +3302,6 @@ impl std::default::Default for api_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct json_api_interface {
     pub interface_name: *const c_char,
@@ -3517,7 +3320,6 @@ impl std::default::Default for json_api_interface {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct frame {
     pub codec: *mut codec,
@@ -3547,17 +3349,11 @@ impl std::default::Default for frame {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct slin_data {
     pub session: *mut core_session,
     pub write_frame: frame,
     pub codec: codec,
     pub frame_data: [c_char; 8192usize],
-}
-impl std::clone::Clone for slin_data {
-    fn clone(&self) -> Self {
-        *self
-    }
 }
 impl std::default::Default for slin_data {
     fn default() -> Self {
@@ -3565,7 +3361,6 @@ impl std::default::Default for slin_data {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct loadable_module_interface {
     pub module_name: *const c_char,
@@ -3594,7 +3389,6 @@ impl std::default::Default for loadable_module_interface {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(i32)]
 #[derive(Debug)]
 pub enum _LIB_VERSION_TYPE {
@@ -3605,7 +3399,6 @@ pub enum _LIB_VERSION_TYPE {
     ISOC_ = 3,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct ip {
     pub _bindgen_data_: [u32; 4usize],
@@ -3625,16 +3418,14 @@ impl std::default::Default for ip {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum uri_flags {
     NUMERIC_HOST = 1,
     NUMERIC_PORT = 2,
     NO_SCOPE = 4,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct http_request {
     pub method: *const c_char,
@@ -3663,7 +3454,6 @@ impl std::default::Default for http_request {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct cputime {
     pub userms: i64,
@@ -3675,7 +3465,6 @@ impl std::default::Default for cputime {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct profile_node {
     pub var: *mut c_char,
@@ -3688,7 +3477,6 @@ impl std::default::Default for profile_node {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct caller_profile {
     pub username: *const c_char,
@@ -3740,7 +3528,6 @@ impl std::default::Default for caller_profile {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct caller_application {
     pub application_name: *mut c_char,
@@ -3754,7 +3541,6 @@ impl std::default::Default for caller_application {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct caller_extension {
     pub extension_name: *mut c_char,
@@ -3771,7 +3557,6 @@ impl std::default::Default for caller_extension {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct rtcp_report_block_frame {
     pub ssrc: u32,
@@ -3790,7 +3575,6 @@ impl std::default::Default for rtcp_report_block_frame {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct rtcp_frame {
     pub report_count: u16,
@@ -3810,7 +3594,6 @@ impl std::default::Default for rtcp_frame {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct channel_timetable {
     pub profile_created: time_t,
@@ -3832,7 +3615,6 @@ impl std::default::Default for channel_timetable {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct event_header {
     pub name: *mut c_char,
@@ -3848,7 +3630,6 @@ impl std::default::Default for event_header {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct event {
     pub event_id: event_types,
@@ -3870,7 +3651,6 @@ impl std::default::Default for event {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct serial_event {
     pub event_id: c_int,
@@ -3886,7 +3666,6 @@ impl std::default::Default for serial_event {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct serial_event_header {
     pub name: *mut c_char,
@@ -3897,9 +3676,8 @@ impl std::default::Default for serial_event_header {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum event_flag {
     EF_UNIQ_HEADERS = 1,
     EF_NO_CHAT_EXEC = 2,
@@ -3910,9 +3688,8 @@ pub type live_array_command_handler = Option<unsafe extern "C" fn(la: *mut live_
                                                                   sessid: *const c_char,
                                                                   jla: *mut cJSON,
                                                                   user_data: *mut c_void)>;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum img_position {
     POS_LEFT_TOP = 0,
     POS_LEFT_MID = 1,
@@ -3925,9 +3702,8 @@ pub enum img_position {
     POS_RIGHT_BOT = 8,
     POS_NONE = 9,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum img_fit {
     FIT_SIZE = 0,
     FIT_SCALE = 1,
@@ -3935,7 +3711,6 @@ pub enum img_fit {
     FIT_NONE = 3,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct yuv_color {
     pub y: u8,
@@ -3948,7 +3723,6 @@ impl std::default::Default for yuv_color {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct rgb_color {
     pub a: u8,
@@ -3962,7 +3736,6 @@ impl std::default::Default for rgb_color {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct image_rect {
     pub x: c_uint,
@@ -3975,15 +3748,13 @@ impl std::default::Default for image_rect {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum convert_fmt {
     YUYV = 0,
 }
 pub enum png_opaque { }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct png {
     pub pvt: *mut png_opaque,
@@ -3995,9 +3766,8 @@ impl std::default::Default for png {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum image_rotation_mode {
     SRM_NONE = 0,
     SRM_90 = 90,
@@ -4005,7 +3775,6 @@ pub enum image_rotation_mode {
     SRM_270 = 270,
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct unicast_conninfo {
     pub session: *mut core_session,
     pub read_codec: codec,
@@ -4025,28 +3794,21 @@ pub struct unicast_conninfo {
     pub stream_id: c_int,
     pub thread: *mut thread,
 }
-impl std::clone::Clone for unicast_conninfo {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for unicast_conninfo {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
 pub enum ivr_digit_stream { }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum ivr_menu_flags {
     FALLTOMAIN = 1,
     FREEPOOL = 2,
     STACK = 4,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum ivr_action {
     DIE = 0,
     EXECMENU = 1,
@@ -4066,24 +3828,17 @@ pub type ivr_menu_action_function = unsafe extern "C" fn(arg1: *mut ivr_menu,
 pub enum ivr_menu_action { }
 pub enum ivr_menu_xml_ctx { }
 #[repr(C)]
-#[derive(Copy)]
 pub struct rtp_packet {
     pub header: rtp_hdr,
     pub body: [c_char; 16396usize],
-}
-impl std::clone::Clone for rtp_packet {
-    fn clone(&self) -> Self {
-        *self
-    }
 }
 impl std::default::Default for rtp_packet {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtp_crypto_direction {
     SEND = 0,
     RECV = 1,
@@ -4092,7 +3847,6 @@ pub enum rtp_crypto_direction {
     MAX = 4,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct srtp_crypto_suite {
     pub name: *mut c_char,
@@ -4105,7 +3859,6 @@ impl std::default::Default for srtp_crypto_suite {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct rtp_crypto_key {
     pub index: u32,
     pub type_: rtp_crypto_key_type,
@@ -4113,25 +3866,18 @@ pub struct rtp_crypto_key {
     pub keylen: usize,
     pub next: *mut rtp_crypto_key,
 }
-impl std::clone::Clone for rtp_crypto_key {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for rtp_crypto_key {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum ice_proto {
     RTP = 0,
     RTCP = 1,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct icand {
     pub foundation: *mut c_char,
@@ -4152,7 +3898,6 @@ impl std::default::Default for icand {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct ice {
     pub cands: [[icand; 2usize]; 50usize],
     pub cand_idx: [c_int; 2usize],
@@ -4162,19 +3907,13 @@ pub struct ice {
     pub pwd: *mut c_char,
     pub options: *mut c_char,
 }
-impl std::clone::Clone for ice {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for ice {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtcp_pt {
     IJ = 195,
     SR = 200,
@@ -4191,9 +3930,8 @@ pub enum rtcp_pt {
     IDMS = 211,
     LAST = 255,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtcp_sdes {
     END = 0,
     CNAME = 1,
@@ -4207,9 +3945,8 @@ pub enum rtcp_sdes {
     H323 = 9,
     APSI = 10,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtcp_rtpfb {
     NACK = 1,
     TMMBR = 3,
@@ -4219,9 +3956,8 @@ pub enum rtcp_rtpfb {
     TLLEI = 7,
     ECN_FB = 8,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum rtcp_psfb {
     PLI = 1,
     SLI = 2,
@@ -4238,9 +3974,8 @@ pub type rtp_invalid_handler = Option<unsafe extern "C" fn(rtp_session: *mut rtp
                                                            data: *mut c_void,
                                                            datalen: usize,
                                                            from_addr: *mut sockaddr)>;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum xml_flag {
     XML_ROOT = 1,
     XML_NAMEM = 2,
@@ -4248,7 +3983,6 @@ pub enum xml_flag {
     XML_DUP = 8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct xml {
     pub name: *mut c_char,
@@ -4270,9 +4004,8 @@ impl std::default::Default for xml {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum xml_config_type {
     INT = 0,
     ATOMIC = 1,
@@ -4285,7 +4018,6 @@ pub enum xml_config_type {
     LAST = 8,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct xml_config_enum_item {
     pub key: *mut c_char,
@@ -4297,7 +4029,6 @@ impl std::default::Default for xml_config_enum_item {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct xml_config_string_options {
     pub pool: *mut memory_pool,
@@ -4310,7 +4041,6 @@ impl std::default::Default for xml_config_string_options {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct xml_config_int_options {
     pub enforce_min: switch_bool,
@@ -4324,7 +4054,6 @@ impl std::default::Default for xml_config_int_options {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct xml_config_atomic_options {
     pub enforce_min: switch_bool,
@@ -4337,17 +4066,15 @@ impl std::default::Default for xml_config_atomic_options {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum config_callback_type {
     LOAD = 0,
     RELOAD = 1,
     SHUTDOWN = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum config_flags {
     RELOADABLE = 1,
     REQUIRED = 2,
@@ -4358,7 +4085,6 @@ pub type xml_config_callback = Option<unsafe extern "C" fn(item: *mut xml_config
                                                            changed: switch_bool)
                                                            -> status>;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct xml_config_item {
     pub key: *const c_char,
@@ -4421,7 +4147,6 @@ pub type recv_dtmf_hook = Option<unsafe extern "C" fn(arg1: *mut core_session,
 pub type state_change_hook = Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
 pub type state_run_hook = Option<unsafe extern "C" fn(arg1: *mut core_session) -> status>;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_outgoing_channel {
     pub outgoing_channel: outgoing_channel_hook,
@@ -4433,7 +4158,6 @@ impl std::default::Default for io_event_hook_outgoing_channel {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_receive_message {
     pub receive_message: receive_message_hook,
@@ -4445,7 +4169,6 @@ impl std::default::Default for io_event_hook_receive_message {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_receive_event {
     pub receive_event: receive_event_hook,
@@ -4457,7 +4180,6 @@ impl std::default::Default for io_event_hook_receive_event {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_read_frame {
     pub read_frame: read_frame_hook,
@@ -4469,7 +4191,6 @@ impl std::default::Default for io_event_hook_read_frame {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_video_read_frame {
     pub video_read_frame: read_frame_hook,
@@ -4481,7 +4202,6 @@ impl std::default::Default for io_event_hook_video_read_frame {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_write_frame {
     pub write_frame: write_frame_hook,
@@ -4493,7 +4213,6 @@ impl std::default::Default for io_event_hook_write_frame {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_video_write_frame {
     pub video_write_frame: video_write_frame_hook,
@@ -4505,7 +4224,6 @@ impl std::default::Default for io_event_hook_video_write_frame {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_kill_channel {
     pub kill_channel: kill_channel_hook,
@@ -4517,7 +4235,6 @@ impl std::default::Default for io_event_hook_kill_channel {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_send_dtmf {
     pub send_dtmf: send_dtmf_hook,
@@ -4529,7 +4246,6 @@ impl std::default::Default for io_event_hook_send_dtmf {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_recv_dtmf {
     pub recv_dtmf: recv_dtmf_hook,
@@ -4541,7 +4257,6 @@ impl std::default::Default for io_event_hook_recv_dtmf {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_state_change {
     pub state_change: state_change_hook,
@@ -4553,7 +4268,6 @@ impl std::default::Default for io_event_hook_state_change {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hook_state_run {
     pub state_run: state_run_hook,
@@ -4565,7 +4279,6 @@ impl std::default::Default for io_event_hook_state_run {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct io_event_hooks {
     pub outgoing_channel: *mut io_event_hook_outgoing_channel,
@@ -4587,7 +4300,6 @@ impl std::default::Default for io_event_hooks {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct scheduler_task {
     pub created: i64,
@@ -4605,7 +4317,6 @@ impl std::default::Default for scheduler_task {
     }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct config {
     pub file: *mut FILE,
     pub path: [c_char; 512usize],
@@ -4617,76 +4328,63 @@ pub struct config {
     pub sectno: c_int,
     pub lockto: c_int,
 }
-impl std::clone::Clone for config {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for config {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum nat_type {
     NONE = 0,
     PMP = 1,
     UPNP = 2,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum nat_ip_proto {
     UDP = 0,
     TCP = 1,
 }
 pub type odbc_statement_handle = *mut c_void;
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum odbc_state {
     INIT = 0,
     DOWN = 1,
     CONNECTED = 2,
     ERROR = 3,
 }
-#[derive(Copy, Clone)]
 #[repr(i32)]
 #[derive(Debug)]
 pub enum odbc_status {
     SUCCESS = 0,
     FAIL = -1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum pgsql_state {
     INIT = 0,
     DOWN = 1,
     CONNECTED = 2,
     ERROR = 3,
 }
-#[derive(Copy, Clone)]
 #[repr(i32)]
 #[derive(Debug)]
 pub enum pgsql_status {
     SUCCESS = 0,
     FAIL = -1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_media_dtmf {
     AUTO = 0,
     RFC2833 = 1,
     INFO = 2,
     NONE = 3,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_media_NDLB {
     ALLOW_BAD_IANANAME = 1,
     ALLOW_NONDUP_SDP = 2,
@@ -4695,9 +4393,8 @@ pub enum core_media_NDLB {
     SENDRECV_IN_SESSION = 16,
     NEVER_PATCH_REINVITE = 32,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_media_flag {
     RUNNING = 0,
     DISABLE_TRANSCODING = 1,
@@ -4718,23 +4415,20 @@ pub enum core_media_flag {
     MULTI_ANSWER_VIDEO = 16,
     MAX = 17,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum STUNFLAGS {
     SET = 1,
     PING = 2,
     FUNNY = 4,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum core_media_vflag {
     IN = 1,
     OUT = 2,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct core_media_params {
     pub rtp_timeout_sec: u32,
@@ -4791,22 +4485,19 @@ impl std::default::Default for core_media_params {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum jb_flag {
     QUEUE_ONLY = 1,
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum jb_type {
     VIDEO = 0,
     AUDIO = 1,
 }
 pub type teletone_process = f64;
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct teletone_tone_map {
     pub freqs: [teletone_process; 18usize],
@@ -4817,7 +4508,6 @@ impl std::default::Default for teletone_tone_map {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct teletone_dds_state {
     pub phase_rate: [u32; 4usize],
@@ -4835,7 +4525,6 @@ pub type tone_handler = Option<unsafe extern "C" fn(ts: *mut teletone_generation
                                                     map: *mut teletone_tone_map)
                                                     -> c_int>;
 #[repr(C)]
-#[derive(Copy)]
 pub struct teletone_generation_session {
     pub TONES: [teletone_tone_map; 127usize],
     pub channels: c_int,
@@ -4859,19 +4548,13 @@ pub struct teletone_generation_session {
     pub dynamic: c_int,
     pub handler: tone_handler,
 }
-impl std::clone::Clone for teletone_generation_session {
-    fn clone(&self) -> Self {
-        *self
-    }
-}
 impl std::default::Default for teletone_generation_session {
     fn default() -> Self {
         unsafe { std::mem::zeroed() }
     }
 }
-#[derive(Copy, Clone)]
 #[repr(u32)]
-#[derive(Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum teletone_hit_type {
     NONE = 0,
     BEGIN = 1,
@@ -4879,7 +4562,6 @@ pub enum teletone_hit_type {
     END = 3,
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct teletone_goertzel_state {
     pub v2: f32,
@@ -4892,7 +4574,6 @@ impl std::default::Default for teletone_goertzel_state {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct teletone_dtmf_detect_state {
     pub hit1: c_int,
@@ -4920,7 +4601,6 @@ impl std::default::Default for teletone_dtmf_detect_state {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct teletone_detection_descriptor {
     pub fac: f32,
@@ -4931,7 +4611,6 @@ impl std::default::Default for teletone_detection_descriptor {
     }
 }
 #[repr(C)]
-#[derive(Copy, Clone)]
 #[derive(Debug)]
 pub struct teletone_multi_tone {
     pub sample_rate: c_int,
