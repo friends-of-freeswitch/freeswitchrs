@@ -18,7 +18,7 @@ impl ModInterface {
         ptr_not_null!(p);
         ModInterface(&mut *p)
     }
-    pub fn as_ptr(&mut self) -> *mut fsr::loadable_module_interface {
+    pub fn as_ptr(&mut self) -> *const fsr::loadable_module_interface {
         self.0
     }
     pub fn as_mut_ptr(&mut self) -> *mut fsr::loadable_module_interface {
@@ -80,8 +80,12 @@ pub unsafe fn wrap_mod_load(mod_def: &ModDefinition,
     let mi = &ModInterface::from_ptr(*mod_int);
     (mod_def.load)(mi).to_raw()
 }
-// Want to end up with
-// unsafe mod_skelr_load( raw shit ) { wrap_mod_load(...) }
+
+/// This macro needs to be called once in the module. It will generate the definitions
+/// required to be loaded by FreeSWITCH. FS requires the exported table to have a name
+/// of <filename>_module_interface. If your mod is called mod_foo, then the first param
+/// to this macro must be mod_foo_module_interface.
+/// The second parameter must be a static (global) ModDefinition.
 #[macro_export]
 macro_rules! freeswitch_export_mod {
     ($table:ident, $def:ident) => (

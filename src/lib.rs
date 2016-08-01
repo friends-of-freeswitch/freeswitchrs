@@ -3,20 +3,11 @@ extern crate libc;
 macro_rules! ptr_not_null {
     ($x:expr) => (if $x.is_null() { panic!(concat!(stringify!($x), "is null.")) });
 }
-macro_rules! gen_wrap_impl {
-    ($pt:ty, $it:ty, $itx:expr, $tt:tt) => (
-        pub unsafe fn from_ptr(p: *mut $pt) -> $it {
-            ptr_not_null!(p);
-            $itx(&mut *p)
-        }
-        pub fn as_ptr(&mut self) -> *mut $pt {
-            self.0 as *mut $pt
-        }
-        pub fn into_mut_ref(self) -> &'a mut $pt {
-            self.0
-        }
-    )
-}
+// Wrapper types wrap up a *mut. This is because we cannot guarantee, in every case,
+// that the pointer will be unaliased. Despite the dupe code, no macro is used, so that
+// tooling (Racer) can determine the types involved and auto-complete will work.
+// The constructor (from_ptr) is unsafe, as it implies the pointer is safe to deref.
+// Other members on the wrapper may expose safe dereferences to the underlying struct.
 
 pub mod raw;
 pub mod mods;
