@@ -1,5 +1,4 @@
 #[macro_use]
-// extern crate libc;
 extern crate freeswitchrs;
 
 use freeswitchrs::raw as fsr;
@@ -11,8 +10,10 @@ fn my_load(mod_int: &ModInterface) -> Status {
     mod_int.add_raw_api("rpanic", "panics with msg", "panic msg", skelr_panic);
 
     // Example of binding to an event
-    // freeswitchrs::event_bind("asd", fsr::event_types::ADD_SCHEDULE, "",
-    //                          |e| { println!("{:?}", (*e.as_ptr()).flags )});
+    freeswitchrs::event_bind("asd", fsr::event_types::ALL, None, |e| {
+        let e = unsafe { e.as_ref() };
+        println!("{:?} {}", e.event_id, e.flags)
+    });
     Ok(())
 }
 

@@ -3,13 +3,16 @@ extern crate libc;
 macro_rules! ptr_not_null {
     ($x:expr) => (if $x.is_null() { panic!(concat!(stringify!($x), "is null.")) });
 }
-macro_rules! gen_from_ptr {
-    ($pt:ty, $it:ty, $itx:expr) => (
+macro_rules! gen_wrap_impl {
+    ($pt:ty, $it:ty, $itx:expr, $tt:tt) => (
         pub unsafe fn from_ptr(p: *mut $pt) -> $it {
             ptr_not_null!(p);
-            $itx(p)
+            $itx(&mut *p)
         }
-        pub unsafe fn as_ptr(&self) -> *mut $pt {
+        pub fn as_ptr(&mut self) -> *mut $pt {
+            self.0 as *mut $pt
+        }
+        pub fn into_mut_ref(self) -> &'a mut $pt {
             self.0
         }
     )
@@ -32,11 +35,41 @@ impl StatusImpl for Status {
 
 pub struct CoreSession(*mut fsr::core_session);
 impl CoreSession {
-    gen_from_ptr!(fsr::core_session, CoreSession, CoreSession);
+    pub unsafe fn from_ptr(p: *mut fsr::core_session) -> CoreSession {
+        ptr_not_null!(p);
+        CoreSession(p)
+    }
+    pub fn as_ptr(&self) -> *const fsr::core_session {
+        self.0 
+    }
+    pub fn as_mut_ptr(&mut self) -> *mut fsr::core_session {
+        self.0
+    }
+    pub unsafe fn as_ref(&self) -> &fsr::core_session {
+        &*self.0
+    }
+    pub unsafe fn as_mut_ref(&mut self) -> &mut fsr::core_session {
+        &mut *self.0
+    }
 }
 pub struct Event(*mut fsr::event);
 impl Event {
-    gen_from_ptr!(fsr::event, Event, Event);
+    pub unsafe fn from_ptr(p: *mut fsr::event) -> Event {
+        ptr_not_null!(p);
+        Event(p)
+    }
+    pub fn as_ptr(&self) -> *const fsr::event {
+        self.0
+    }
+    pub fn as_mut_ptr(&mut self) -> *mut fsr::event {
+        self.0
+    }
+    pub unsafe fn as_ref(&self) -> &fsr::event {
+        &*self.0
+    }
+    pub unsafe fn as_mut_ref(&mut self) -> &mut fsr::event {
+        &mut *self.0
+    }
 }
 
 pub fn event_bind<F>(id: &str, event: fsr::event_types, subclass_name: Option<&str>, callback: F)

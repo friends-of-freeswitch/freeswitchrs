@@ -14,7 +14,22 @@ pub type ApiRawFunc = unsafe extern "C" fn(cmd: *const c_char,
 
 pub struct ModInterface(*mut fsr::loadable_module_interface);
 impl ModInterface {
-    gen_from_ptr!(fsr::loadable_module_interface, ModInterface, ModInterface);
+    pub unsafe fn from_ptr(p: *mut fsr::loadable_module_interface) -> ModInterface {
+        ptr_not_null!(p);
+        ModInterface(&mut *p)
+    }
+    pub fn as_ptr(&mut self) -> *mut fsr::loadable_module_interface {
+        self.0
+    }
+    pub fn as_mut_ptr(&mut self) -> *mut fsr::loadable_module_interface {
+        self.0
+    }
+    pub unsafe fn as_ref(&self) -> &fsr::loadable_module_interface {
+        &*self.0
+    }
+    pub unsafe fn as_mut_ref(&self) -> &mut fsr::loadable_module_interface {
+        &mut *self.0
+    }
 
     unsafe fn create_int(&self, iname: IntName) -> *mut c_void {
         fsr::loadable_module_create_interface((*self).0, iname)
@@ -41,7 +56,7 @@ impl ModInterface {
     // }
 }
 
-// Module Loading/Definition
+// Module Loading/Definition 
 
 pub struct ModDefinition {
     pub name: &'static str,

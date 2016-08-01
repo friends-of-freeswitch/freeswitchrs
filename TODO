@@ -1,6 +1,5 @@
 Status - Right now it's a Result (),raw::status. What should it be?
 Create preulude - once there's more of an API
-Panic safety - Cargo option for abort-on-panic should work
 Naming - should we change naming and casing of structs (SnakeCase) and kill caps on enums?
 Bitfields - bitfield! macro 
 Trampolines - we need to get libffi (closures.c) connected to generate trampolines at runtime
