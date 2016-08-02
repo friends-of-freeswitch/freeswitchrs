@@ -4,6 +4,7 @@ extern crate freeswitchrs;
 use freeswitchrs::raw as fsr;
 use freeswitchrs::mods::*; // This will get replaced with a mods prelude
 use freeswitchrs::Status;
+use std::borrow::Cow;
 
 fn my_load(mod_int: &ModInterface) -> Status {
     mod_int.add_raw_api("skelr", "Example doc", "skelr", skelr_api);
@@ -11,8 +12,9 @@ fn my_load(mod_int: &ModInterface) -> Status {
 
     // Example of binding to an event
     freeswitchrs::event_bind("asd", fsr::event_types::ALL, None, |e| {
-        let e = unsafe { e.as_ref() };
-        println!("{:?} {}", e.event_id, e.flags)
+        let s = e.subclass_name();
+        let b = e.body().unwrap_or(Cow::Borrowed("<No Body>"));
+        println!("{:?}/{:?} {} = {:?}", e.event_id(), s, e.flags(), b)
     });
     Ok(())
 }

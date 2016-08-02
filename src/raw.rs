@@ -28,6 +28,15 @@ pub fn str_to_ptr(s: &str) -> *mut c_char {
     }
 }
 
+/// Take a char*. On null, return None. Otherwise a &str or String.
+/// Lossy conversion is applied, so non-UTF-8 char* will result in an allocation
+/// and replacement of invalid UTF-8 sequences.
+pub unsafe fn ptr_to_str<'a>(p: *const c_char) -> Option<std::borrow::Cow<'a, str>> {
+    if p.is_null() { return None }
+    let cs = std::ffi::CStr::from_ptr(p);
+    Some(cs.to_string_lossy())
+}
+
 #[repr(C)]
 #[derive(Debug)]
 pub struct in6_addr {

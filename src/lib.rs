@@ -13,6 +13,7 @@ pub mod raw;
 pub mod mods;
 
 use raw as fsr;
+use std::borrow::Cow;
 
 pub type Status = Result<(), fsr::status>;
 pub trait StatusImpl {
@@ -36,13 +37,9 @@ impl CoreSession {
     pub fn as_mut_ptr(&mut self) -> *mut fsr::core_session {
         self.0
     }
-    pub unsafe fn as_ref(&self) -> &fsr::core_session {
-        &*self.0
-    }
-    pub unsafe fn as_mut_ref(&mut self) -> &mut fsr::core_session {
-        &mut *self.0
-    }
+    // No ref access, since core_session is opaque
 }
+
 pub struct Event(*mut fsr::event);
 impl Event {
     pub unsafe fn from_ptr(p: *mut fsr::event) -> Event {
@@ -60,6 +57,27 @@ impl Event {
     }
     pub unsafe fn as_mut_ref(&mut self) -> &mut fsr::event {
         &mut *self.0
+    }
+    pub fn event_id(&self) -> fsr::event_types {
+        unsafe { (*self.0).event_id }
+    }
+    pub fn priority(&self) -> fsr::priority {
+        unsafe { (*self.0).priority }
+    }
+    pub fn owner<'a>(&self) -> Option<Cow<'a, str>> {
+        unsafe { fsr::ptr_to_str((*self.0).owner) }
+    }
+    pub fn subclass_name<'a>(&self) -> Option<Cow<'a, str>> {
+        unsafe { fsr::ptr_to_str((*self.0).subclass_name) }
+    }
+    pub fn body<'a>(&self) -> Option<Cow<'a, str>> {
+        unsafe { fsr::ptr_to_str((*self.0).body) }
+    }
+    pub fn key(&self) -> u64 {
+        unsafe { (*self.0).key as u64 }
+    }
+    pub fn flags(&self) -> isize {
+        unsafe { (*self.0).flags as isize }
     }
 }
 
