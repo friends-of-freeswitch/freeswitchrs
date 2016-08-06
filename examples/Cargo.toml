@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Michael Giagnocavo <mgg@giagnocavo.net>"]
 
 [dependencies]
+libc = "0.2"
 
 [dependencies.freeswitchrs]
 path = ".."

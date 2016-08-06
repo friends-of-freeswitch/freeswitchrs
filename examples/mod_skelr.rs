@@ -1,5 +1,6 @@
 #[macro_use]
 extern crate freeswitchrs;
+extern crate libc;
 
 use freeswitchrs::raw as fsr;
 use freeswitchrs::mods::*; // This will get replaced with a mods prelude
@@ -14,7 +15,7 @@ fn my_load(mod_int: &ModInterface) -> Status {
     freeswitchrs::event_bind("asd", fsr::event_types::ALL, None, |e| {
         let s = e.subclass_name();
         let b = e.body().unwrap_or(Cow::Borrowed("<No Body>"));
-        println!("{:?}/{:?} {} = {:?}", e.event_id(), s, e.flags(), b)
+        println!("{:?}/{:?} {} = {}", e.event_id(), s, e.flags(), b)
     });
     Ok(())
 }
@@ -34,6 +35,8 @@ unsafe extern "C" fn skelr_api(cmd: *const std::os::raw::c_char,
                                stream: *mut fsr::stream_handle)
                                -> fsr::status {
     (*stream).write_function.unwrap()(stream, fsr::str_to_ptr("OK"));
+    let data = std::ffi::CStr::from_ptr(cmd).to_str().unwrap_or("");
+    fslog!(fsr::log_level::INFO, "Logging data: {}", data);
     fsr::status::SUCCESS
 }
 

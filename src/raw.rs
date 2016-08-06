@@ -37,6 +37,27 @@ pub unsafe fn ptr_to_str<'a>(p: *const c_char) -> Option<std::borrow::Cow<'a, st
     Some(cs.to_string_lossy())
 }
 
+/// Creates a constant nul-terminated *const c_char
+#[macro_export]
+macro_rules! char_const {
+    ($s:expr) => (
+        concat!($s, "\n\0").as_bytes().as_ptr() as *const ::libc::c_char;
+    )
+}
+
+/// Calls FreeSWITCH log_printf, buy uses Rust format! instead of printf.
+/// Be sure to have libc in your Cargo.toml.
+#[macro_export]
+macro_rules! fslog {
+    ($level:expr, $fmt:expr, $($arg:tt),*) => (
+        let s = format!(concat!($fmt, "\0"), $($arg),*);
+        $crate::raw::log_printf($crate::raw::text_channel::ID_LOG,
+                                concat!(file!(), '\0').as_bytes().as_ptr() as *const libc::c_char,
+                                std::ptr::null(), line!() as libc::c_int, std::ptr::null(),
+                                $level, char_const!("%s"), s.as_bytes().as_ptr());
+    )
+}
+
 #[repr(C)]
 #[derive(Debug)]
 pub struct in6_addr {
