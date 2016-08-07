@@ -1826,8 +1826,8 @@ pub type hash_index = hashtable_iterator;
 pub enum network_list { }
 pub type module_load = unsafe extern "C" fn(module_interface: *mut *mut loadable_module_interface,
                                             pool: *mut memory_pool) -> status;
-pub type module_runtime = extern "C" fn() -> status;
-pub type module_shutdown = extern "C" fn() -> status;
+pub type module_runtime = Option<extern "C" fn() -> status>;
+pub type module_shutdown = Option<extern "C" fn() -> status>;
 #[repr(u32)]
 #[derive(Copy, Clone, Debug)]
 pub enum thread_priority {

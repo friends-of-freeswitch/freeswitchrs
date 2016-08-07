@@ -81,18 +81,18 @@ pub unsafe fn wrap_mod_load(mod_def: &ModDefinition,
     (mod_def.load)(mi).to_raw()
 }
 
-pub fn wrap_mod_shutdown(mod_def: &ModDefinition)
+pub fn wrap_mod_runtime(mod_def: &ModDefinition)
                          -> fsr::status {
-    if let Some(func) = mod_def.shutdown {
+    if let Some(func) = mod_def.runtime {
         func().to_raw()
     } else {
         fsr::status::SUCCESS
     }
 }
 
-pub fn wrap_mod_runtime(mod_def: &ModDefinition)
-                        -> fsr::status {
-    if let Some(func) = mod_def.runtime {
+pub fn wrap_mod_shutdown(mod_def: &ModDefinition)
+                         -> fsr::status {
+    if let Some(func) = mod_def.shutdown {
         func().to_raw()
     } else {
         fsr::status::SUCCESS
@@ -111,12 +111,13 @@ macro_rules! freeswitch_export_mod {
 pub unsafe extern "C" fn _mod_load(mod_int: *mut *mut fsr::loadable_module_interface,
                                         mem_pool: *mut fsr::memory_pool)
                                         -> fsr::status {
+    if let Some(_) = $def.runtime {
+        $table.runtime = Some(_mod_runtime);
+    }
+    if let Some(_) = $def.shutdown {
+        $table.shutdown = Some(_mod_shutdown);
+    }
     wrap_mod_load(&$def, mod_int, mem_pool)
-}
-
-#[no_mangle]
-pub extern "C" fn _mod_shutdown() -> fsr::status {
-    wrap_mod_shutdown(&$def)
 }
 
 #[no_mangle]
@@ -125,13 +126,18 @@ pub extern "C" fn _mod_runtime() -> fsr::status {
 }
 
 #[no_mangle]
+pub extern "C" fn _mod_shutdown() -> fsr::status {
+    wrap_mod_shutdown(&$def)
+}
+
+#[no_mangle]
 #[allow(non_upper_case_globals)]
-pub static $table: fsr::loadable_module_function_table =
+pub static mut $table: fsr::loadable_module_function_table =
     fsr::loadable_module_function_table {
         api_version: 5,
         load: _mod_load,
-        shutdown: _mod_shutdown,
-        runtime: _mod_runtime,
+        shutdown: None,
+        runtime: None,
         flags: fsr::module_flag_enum::NONE as u32,
     };
 );}
