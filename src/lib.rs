@@ -79,6 +79,12 @@ impl Event {
     pub fn flags(&self) -> isize {
         unsafe { (*self.0).flags as isize }
     }
+    pub fn header<'a>(&self, name: &str) -> Option<Cow<'a, str>> {
+        unsafe {
+            let v = fsr::event_get_header_ptr(self.0, fsr::str_to_ptr(name));
+            fsr::ptr_to_str((*v).value)
+        }
+    }
 }
 
 pub fn event_bind<F>(id: &str, event: fsr::event_types, subclass_name: Option<&str>, callback: F)
