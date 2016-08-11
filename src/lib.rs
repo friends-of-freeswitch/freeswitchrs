@@ -12,8 +12,10 @@ macro_rules! ptr_not_null {
 pub mod raw;
 pub mod mods;
 
-use raw as fsr;
 use std::borrow::Cow;
+use libc::c_char;
+
+use raw as fsr;
 
 pub type Status = Result<(), fsr::status>;
 pub trait StatusImpl {
@@ -64,13 +66,13 @@ impl Event {
     pub fn priority(&self) -> fsr::priority {
         unsafe { (*self.0).priority }
     }
-    pub fn owner<'a>(&self) -> Option<Cow<'a, str>> {
+    pub fn owner(&self) -> Option<Cow<str>> {
         unsafe { fsr::ptr_to_str((*self.0).owner) }
     }
-    pub fn subclass_name<'a>(&self) -> Option<Cow<'a, str>> {
+    pub fn subclass_name(&self) -> Option<Cow<str>> {
         unsafe { fsr::ptr_to_str((*self.0).subclass_name) }
     }
-    pub fn body<'a>(&self) -> Option<Cow<'a, str>> {
+    pub fn body(&self) -> Option<Cow<str>> {
         unsafe { fsr::ptr_to_str((*self.0).body) }
     }
     pub fn key(&self) -> u64 {
@@ -79,11 +81,33 @@ impl Event {
     pub fn flags(&self) -> isize {
         unsafe { (*self.0).flags as isize }
     }
-    pub fn header<'a>(&self, name: &str) -> Option<Cow<'a, str>> {
+    pub fn header<'a>(&'a self, name: &str) -> Option<Cow<'a, str>> {
         unsafe {
-            let v = fsr::event_get_header_ptr(self.0, fsr::str_to_ptr(name));
+            let v = fsr::event_get_header_ptr(self.0, name.as_ptr() as *const c_char);
             fsr::ptr_to_str((*v).value)
         }
+    }
+}
+pub struct EventHeader(*mut fsr::event_header);
+impl EventHeader {
+    pub unsafe fn from_ptr(p: *mut fsr::event_header) -> EventHeader {
+        ptr_not_null!(p);
+        EventHeader(p)
+    }
+    pub fn as_ptr(&self) -> *const fsr::event_header {
+        self.0
+    }
+    pub fn as_mut_ptr(&mut self) -> *mut fsr::event_header {
+        self.0
+    }
+    pub unsafe fn as_ref(&self) -> &fsr::event_header {
+        &*self.0
+    }
+    pub unsafe fn as_mut_ref(&mut self) -> &mut fsr::event_header {
+        &mut *self.0
+    }
+    pub fn name(&self) -> Cow<str> {
+        unsafe { fsr::ptr_to_str((*self.0).name).expect("event_header.name cannot be null.") }
     }
 }
 

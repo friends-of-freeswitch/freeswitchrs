@@ -43,7 +43,7 @@ pub unsafe fn ptr_to_str<'a>(p: *const c_char) -> Option<std::borrow::Cow<'a, st
 #[macro_export]
 macro_rules! char_const {
     ($s:expr) => (
-        concat!($s, "\n\0").as_bytes().as_ptr() as *const ::libc::c_char;
+        concat!($s, "\n\0").as_ptr() as *const ::libc::c_char;
     )
 }
 
@@ -65,15 +65,15 @@ macro_rules! fslog {
         let s = concat!($s, "\0");
         $crate::raw::__log_printf_safe(
             $crate::raw::text_channel::ID_LOG,
-            concat!(file!(), '\0').as_bytes().as_ptr() as *const libc::c_char,
-            line!() as libc::c_int, $level, s.as_bytes().as_ptr());
+            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
+            line!() as libc::c_int, $level, s.as_ptr());
     );
     ($level:expr, $fmt:expr, $($arg:expr),*) => (
         let s = format!(concat!($fmt, "\0"), $($arg),*);
         $crate::raw::__log_printf_safe(
             $crate::raw::text_channel::ID_LOG,
-            concat!(file!(), '\0').as_bytes().as_ptr() as *const libc::c_char,
-            line!() as libc::c_int, $level, s.as_bytes().as_ptr());
+            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
+            line!() as libc::c_int, $level, s.as_ptr());
     );
 }
 
