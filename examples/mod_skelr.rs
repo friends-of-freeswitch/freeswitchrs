@@ -12,10 +12,10 @@ fn my_load(mod_int: &ModInterface) -> Status {
     mod_int.add_raw_api("rpanic", "panics with msg", "panic msg", skelr_panic);
 
     // Example of binding to an event
-    freeswitchrs::event_bind("asd", fsr::event_types::ALL, None, |e| {
+    freeswitchrs::event_bind("example_binding", fsr::event_types::ALL, None, |e| {
         let s = e.subclass_name();
         let b = e.body().unwrap_or(Cow::Borrowed("<No Body>"));
-        println!("{:?}/{:?} {} = {}", e.event_id(), s, e.flags(), b)
+        fslog!(fsr::log_level::INFO, "{:?}/{:?} {} = {}", e.event_id(), s, e.flags(), b);
     });
     Ok(())
 }

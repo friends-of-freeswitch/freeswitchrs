@@ -4,17 +4,17 @@
          non_snake_case)]
 
 use std;
-use ::libc::c_void;
-use ::libc::c_char;
-use ::libc::c_uchar;
-use ::libc::c_short;
-use ::libc::c_int;
-use ::libc::c_uint;
-//use ::libc::c_long;
-use ::libc::c_ulong;
-use ::libc::timeval;
-use ::libc::time_t;
-use ::libc::FILE;
+use libc::c_void;
+use libc::c_char;
+use libc::c_uchar;
+use libc::c_short;
+use libc::c_int;
+use libc::c_uint;
+// use ::libc::c_long;
+use libc::c_ulong;
+use libc::timeval;
+use libc::time_t;
+use libc::FILE;
 
 /// This function copies a &str to a C-style nul-terminated char*.
 /// It uses malloc, so that other code (FreeSWITCH) can call free() on it.
@@ -32,7 +32,9 @@ pub fn str_to_ptr(s: &str) -> *mut c_char {
 /// Lossy conversion is applied, so non-UTF-8 char* will result in an allocation
 /// and replacement of invalid UTF-8 sequences.
 pub unsafe fn ptr_to_str<'a>(p: *const c_char) -> Option<std::borrow::Cow<'a, str>> {
-    if p.is_null() { return None }
+    if p.is_null() {
+        return None;
+    }
     let cs = std::ffi::CStr::from_ptr(p);
     Some(cs.to_string_lossy())
 }
@@ -45,17 +47,34 @@ macro_rules! char_const {
     )
 }
 
-/// Calls FreeSWITCH log_printf, buy uses Rust format! instead of printf.
+/// Internal use only. Workaround for unsafe block in fslog macro.
+pub fn __log_printf_safe(channel: self::text_channel,
+                         file: *const c_char, line: c_int,
+                         level: self::log_level, s: *const u8) {
+    unsafe {
+        self::log_printf(channel, file, std::ptr::null(), line, std::ptr::null(),
+                         level, char_const!("%s"), s);
+    }
+}
+
+/// Calls FreeSWITCH log_printf, but uses Rust format! instead of printf.
 /// Be sure to have libc in your Cargo.toml.
 #[macro_export]
 macro_rules! fslog {
-    ($level:expr, $fmt:expr, $($arg:tt),*) => (
+    ($level:expr, $s:expr) => (
+        let s = concat!($s, "\0");
+        $crate::raw::__log_printf_safe(
+            $crate::raw::text_channel::ID_LOG,
+            concat!(file!(), '\0').as_bytes().as_ptr() as *const libc::c_char,
+            line!() as libc::c_int, $level, s.as_bytes().as_ptr());
+    );
+    ($level:expr, $fmt:expr, $($arg:expr),*) => (
         let s = format!(concat!($fmt, "\0"), $($arg),*);
-        $crate::raw::log_printf($crate::raw::text_channel::ID_LOG,
-                                concat!(file!(), '\0').as_bytes().as_ptr() as *const libc::c_char,
-                                std::ptr::null(), line!() as libc::c_int, std::ptr::null(),
-                                $level, char_const!("%s"), s.as_bytes().as_ptr());
-    )
+        $crate::raw::__log_printf_safe(
+            $crate::raw::text_channel::ID_LOG,
+            concat!(file!(), '\0').as_bytes().as_ptr() as *const libc::c_char,
+            line!() as libc::c_int, $level, s.as_bytes().as_ptr());
+    );
 }
 
 #[repr(C)]
