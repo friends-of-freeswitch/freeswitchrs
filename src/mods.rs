@@ -11,6 +11,8 @@ pub type ApiRawFunc = unsafe extern "C" fn(cmd: *const c_char,
                                            session: *mut fsr::core_session,
                                            stream: *mut fsr::stream_handle)
                                            -> fsr::status;
+pub type AppRawFunc = unsafe extern "C" fn(session: *mut fsr::core_session,
+                                           data: *const c_char);
 
 pub struct ModInterface(*mut fsr::loadable_module_interface);
 impl ModInterface {
@@ -46,6 +48,24 @@ impl ModInterface {
             (*ai).desc = desc;
             (*ai).syntax = syntax;
             (*ai).function = Some(func);
+        }
+    }
+
+    pub fn add_raw_application(&self, name: &str, long_desc: &str, short_desc: &str, syntax: &str,
+                               func: AppRawFunc, flags: fsr::application_flag_enum) {
+        let name = fsr::str_to_ptr(name);
+        let long_desc = fsr::str_to_ptr(long_desc);
+        let short_desc = fsr::str_to_ptr(short_desc);
+        let syntax = fsr::str_to_ptr(syntax);
+        unsafe {
+            let ai = self.create_int(IntName::APPLICATION_INTERFACE) as *mut fsr::application_interface;
+            ptr_not_null!(ai);
+            (*ai).interface_name = name;
+            (*ai).long_desc = long_desc;
+            (*ai).short_desc = short_desc;
+            (*ai).syntax = syntax;
+            (*ai).flags = flags as u32;
+            (*ai).application_function = Some(func);
         }
     }
 
