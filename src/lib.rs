@@ -83,8 +83,8 @@ impl Event {
     }
     pub fn header<'a>(&'a self, name: &str) -> Option<Cow<'a, str>> {
         unsafe {
-            let v = fsr::event_get_header_ptr(self.0, name.as_ptr() as *const c_char);
-            fsr::ptr_to_str((*v).value)
+            let v = fsr::event_get_header_idx(self.0, name.as_ptr() as *const c_char, -1);
+            fsr::ptr_to_str(v)
         }
     }
 }
