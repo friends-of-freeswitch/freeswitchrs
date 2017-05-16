@@ -13,7 +13,7 @@ pub mod raw;
 pub mod mods;
 
 use std::borrow::Cow;
-use libc::c_char;
+use std::ffi::{CString};
 
 use raw as fsr;
 
@@ -83,7 +83,8 @@ impl Event {
     }
     pub fn header<'a>(&'a self, name: &str) -> Option<Cow<'a, str>> {
         unsafe {
-            let v = fsr::event_get_header_idx(self.0, name.as_ptr() as *const c_char, -1);
+            let hname = CString::new(name).unwrap();
+            let v = fsr::event_get_header_idx(self.0, hname.as_ptr(), -1);
             fsr::ptr_to_str(v)
         }
     }
